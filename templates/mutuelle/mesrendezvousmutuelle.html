@@ -1,0 +1,104 @@
+{% extends "layouts/base.html" %}
+{% load custom_template_tags %}
+
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header">
+                    <span class="d-block m-t-5">Mes rendez vous MUTUELLE </span>
+                </div>
+                <div class="card-block table-border-style">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Nom client</th>
+                                    <th>Prénom client</th>
+                                    <th>Adresse </th>
+                                    <th>Ville</th>
+                                    <th>Code postal</th>
+                                    <th>Téléphone</th>
+                                    <th>Email</th>
+                                    <th>Date de naissance</th>
+                                    <th>Vous etes seule ou pas</th>
+                                    <th>Date rendze vous</th>
+                                    <th>Description</th>
+                                    <th>Type</th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                {% for i in list %}
+                                {% if i.etat == 1 %}
+                                {% setvar "rgb(246, 240, 161)" as color %}
+
+
+                                {% elif i.etat == 2 %}
+                                {% setvar "rgb(155, 246, 135)" as color %}
+
+                                {% elif i.etat == 0 %}
+                                {% setvar "rgb(241, 83, 83)" as color %}
+
+
+                                {% endif %}
+
+
+                                <tr style="background-color: {{color}};">
+
+                                    <form action="" method="POST" id="form">
+                                        {% csrf_token %}
+                                        <td>{{ i.nom_client }}</td>
+                                        <td>{{ i.prenom_client }}</td>
+                                        <td>{{ i.adresse }}</td>
+                                        <td>{{ i.ville }}</td>
+                                        <td>{{ i.code_postal }}</td>
+                                        <td>{{ i.telephone }}</td>
+                                        <td>{{ i.email }}</td>
+                                        <td>{{ i.date_naissance }}</td>
+                                        <td>{{ i.seule }}</td>
+                                        <td>{{ i.date_rendez_vous }}</td>
+                                        <td>{{ i.Description }}</td>
+
+                                        <td>{{ i.typerv }}</td>
+
+
+
+                                </tr>
+                                </form>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+
+<style>
+    td {
+        color: black;
+        font-weight: bold;
+
+
+    }
+</style>
+{% endblock content %}

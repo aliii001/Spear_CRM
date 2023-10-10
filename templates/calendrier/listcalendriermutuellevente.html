@@ -1,0 +1,183 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+
+
+{% endblock stylesheets %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.2/main.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.2/main.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <div class="col-xl-12">
+            <div class="card">
+
+
+                <div class="card-header">
+                    <h4>Liste des Rendez-vous OPCO</h4>
+                    <br>
+                    <div id="calendar"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script>
+    $(document).ready(function () {
+
+
+    });
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+
+            // editable:true,
+            height: 900,
+            //selectable: true,
+            selectMirror: true,
+            eventLimit: true,
+
+            headerToolbar:
+            {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            },
+
+            events:
+                [
+
+
+                    {% for i in listt %}
+            {
+
+                title: '{{i.nom_client}} {{i.prenom_client}}',
+                start: '{{i.date_rendez_vous|date:"Y-m-d"}}',
+                color: '#4385EA'
+
+            },
+            {% endfor %}
+             {% for i in listt2 %}
+    {
+
+        title: '{{i.nom_client}} {{i.prenom_client}}',
+            start: '{{i.date_rendez_vous|date:"Y-m-d"}}',
+                color: '#f5a91b',
+
+    },
+    {% endfor %}
+                ],
+    eventDidMount: function (event) {
+
+
+    },
+
+    ////////delete event
+    // eventClick: function (info) {
+    //     //         var dataHoje = new Date();
+    //     //           var start=info.event.start;
+    //     // console.log("dateeeeeeeee",dataHoje)
+    //     var eventObj = info.event;
+    //     console.log(eventObj)
+    //     var id = eventObj.id
+    //     console.log(id)
+    //     Swal.fire({
+    //         title: 'Are you sure?',
+    //         text: "You won't be able to revert this!",
+    //         icon: 'warning',
+    //         showCancelButton: true,
+    //         confirmButtonColor: '#3085d6',
+    //         cancelButtonColor: '#d33',
+    //         confirmButtonText: 'Yes, delete it!'
+    //     }).then((result) => {
+    //         if (result.isConfirmed) {
+
+    //             $.ajax({
+    //                 url: "/delete_event",
+    //                 type: "GET",
+    //                 data: { id: id },
+    //                 success: function () {
+    //                     console.log('Id of event to be deleted', id)
+
+    //                     Swal.fire(
+    //                         'Deleted!',
+    //                         'Your Event has been deleted.',
+    //                         'success'
+    //                     ).then((result) => {
+    //                         location.reload();
+    //                     });
+
+    //                 }
+    //             })
+
+
+
+
+
+    //         }
+    //     })
+
+
+    // },
+    // ////////
+    eventResize: function (event) {
+        //var start=event.start
+        //alert("new start",start)
+        //console.log(event.start)
+        //var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
+        console.log("event start", event.event.start)
+        console.log("event start", event.event.end)
+        console.log("title", event.event.title)
+        console.log("event id", event.event.id)
+        id = event.event.id
+        title = event.event.title
+        start = event.event.start
+        end = event.event.end
+        //var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
+        //alert(start)
+        //var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
+        //var title = event.title;
+        //var id = event.id;
+        $.ajax({
+            url: "/update_event",
+            type: "POST",
+            data: { title: title, start: start, end: end, id: id },
+            success: function () {
+                location.reload();
+
+            }
+        })
+    },
+ 
+                
+             
+        });
+    calendar.render();
+      });
+
+
+
+
+</script>
+{% endblock content %}

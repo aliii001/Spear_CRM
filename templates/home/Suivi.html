@@ -1,0 +1,190 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Suivi {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="wrapper">
+                    <div class="">
+                        <div class="">
+                            <div class="contact-wrap w-100 p-md-5 p-4">
+                                <h3 class="mb-4">Suivi Forme</h3>
+                                <div id="form-message-warning" class="mb-4"></div>
+
+                                <form method="POST" id="myFormId" name="contactForm" class="contactForm">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="name">Donner le nombre des minutes </label>
+                                                {{form.nbre_min}}
+                                                {% if form.nbre_min.errors %}
+                                                <div class="alert alert-danger alert-dismissible fade show"
+                                                    role="alert">
+                                                    {{ form.nbre_min.errors }}
+
+                                                </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="name">Donner le nombre des secondes </label>
+                                                {{form.nbre_sec}}
+                                                {% if form.nbre_sec.errors %}
+                                                <div class="alert alert-danger alert-dismissible fade show"
+                                                    role="alert">
+                                                    {{ form.nbre_sec.errors }}
+
+                                                </div>
+                                                {% endif %}
+
+                                            </div>
+
+
+
+                                        </div>
+
+
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <button id="submitForm" type="submit"
+                                                    class="btn btn-primary">Valider</button>
+                                                <div class="submitting"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                {% for message in messages %}
+                                <div class="alert alert-primary" role="alert">
+                                    {{message}}
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                </div>
+                                {% endfor %}
+
+
+
+
+
+
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Mes suivis</h5>
+                    <span class="d-block m-t-5">Le total des suivis : {{total}}</span>
+                    <span class="d-block m-t-5">Le total des minutes consommées : {{total_minutes.count}}</span>
+                    <span class="d-block m-t-5">Le total des secondes consommées : {{total_secondes.count}}</span>
+                </div>
+                <div class="card-block table-border-style">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Nom utilisateur </th>
+                                    <th>Nombre des minutes</th>
+                                    <th>Nombre des secondes</th>
+                                    <th>Modifier</th>
+                                    <th>Supprimer</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in Suivis %}
+
+                                <tr>
+
+                                    <form action="" method="POST" id="form">
+                                        {% csrf_token %}
+                                        <td>{{ i.username }}</td>
+                                        <td>{{ i.nbre_min }}</td>
+                                        <td>{{ i.nbre_sec }}</td>
+
+
+                                        <td><a href="{% url 'modifiersuivi' i.id%}" class="btn btn-outline-primary"
+                                                id="accept" data-toggle="tooltip" type="submit" value="Modifier"
+                                                name="status">Modifier</a></td>
+                                        <td><a onclick="supprimer({{i.id}})" class="btn btn-outline-danger"
+                                                data-toggle="tooltip" id="submitForm">Supprimer</a></td>
+
+                                </tr>
+                                </form>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<div class="pcoded-inner-content">
+
+</div>
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+
+<script>
+    function supprimer(idforum) {
+        swal({
+            title: "Are you sure?",
+            text: "Are you sure that you want to leave this page?",
+            icon: "warning",
+            dangerMode: true,
+            buttons: true,
+
+        })
+            .then(willDelete => {
+                if (willDelete) {
+                    swal("Deleted!", "Your  file has been deleted!", "success")
+                        .then((value) => {
+                            $.ajax({
+                                url: 'http://51.255.168.8:8000/deleteSuivi/' + idforum,
+                                success: function (data) {
+                                    if (data = "deleted") {
+                                        window.location.replace(window.location.href);
+                                    }
+                                }
+
+
+                            })
+                        })
+                }
+                else {
+                }
+            });
+
+    }
+
+</script>
+{% endblock content %}

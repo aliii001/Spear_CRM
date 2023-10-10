@@ -1,0 +1,230 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+
+
+{% endblock stylesheets %}
+
+{% block content %}
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="wrapper">
+                    <div class="row no-gutters">
+                        <div class="">
+                            <div class="contact-wrap w-100 p-md-5 p-4">
+                                <h3 class="mb-4">Charge variable Forme</h3>
+                                <div id="form-message-warning" class="mb-4"></div>
+
+                                <form method="POST" id="myFormId" name="contactForm" class="contactForm">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="name">Salaire</label>
+                                                {{form.salaire}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="email">Crédit</label>
+                                                {{form.credit}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="subject">Marketing digitale</label>
+                                                {{form.marketingdigitale}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Voip</label>
+                                                {{form.voip}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="subject">Fiches</label>
+                                                {{form.fiches}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">CRM</label>
+                                                {{form.crm}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Hébergement</label>
+                                                {{form.hebergement}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">leads</label>
+                                                {{form.leads}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Voyant</label>
+                                                {{form.voyants}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Autres</label>
+                                                {{form.autres}}
+                                            </div>
+                                        </div>
+
+
+
+
+
+
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <button id="submitForm" type="submit"
+                                                    class="btn btn-primary">Valider</button>
+                                                <div class="submitting"></div>
+                                            </div>
+                                        </div>
+                                        {% for message in messages %}
+                                        <div class="alert alert-primary" role="alert">
+                                            {{message}}
+                                            <a href="#" class="close" data-dismiss="alert"
+                                                aria-label="close">&times;</a>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Liste des Charges variables.</h5>
+
+                </div>
+                <div class="card-block table-border-style">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Salaire </th>
+                                    <th>Crédit</th>
+                                    <th>Marketing digitale</th>
+                                    <th>Voip</th>
+                                    <th>Fiches</th>
+                                    <th>CRM</th>
+                                    <th>Hébérgement</th>
+                                    <th>Leads</th>
+                                    <th>Voyant</th>
+                                    <th>Autres</th>
+                                    <th>Modifier</th>
+                                    <th>Supprimer</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in list %}
+
+                                <tr>
+
+                                    <form action="" method="POST" id="form">
+                                        {% csrf_token %}
+
+                                        <td>{{ i.username }}</td>
+                                        <td>{{ i.salaire }}</td>
+                                        <td>{{ i.credit }}</td>
+                                        <td>{{ i.marketingdigitale }}</td>
+                                        <td>{{ i.voip }}</td>
+                                        <td>{{ i.fiches }}</td>
+                                        <td>{{ i.crm }}</td>
+                                        <td>{{ i.hebergement }}</td>
+                                        <td>{{ i.leads }}</td>
+                                        <td>{{ i.voyants }}</td>
+                                        <td>{{ i.autres }}</td>
+
+                                        <td><a href="{% url  'updatechargevariable' i.id %}"
+                                                class="btn btn-outline-primary" data-toggle="tooltip">Modifier</a></td>
+                                        <td><a onclick="supprimer({{i.id}})" class="btn btn-outline-danger" id="refuse"
+                                                data-toggle="tooltip" type="submit" value="Refuse"
+                                                name="status">Supprimer</a></td>
+
+
+                                </tr>
+                                </form>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+
+
+
+
+
+    function supprimer(idforum) {
+        swal({
+            title: "Are you sure?",
+            text: "Are you sure that you want to leave this page?",
+            icon: "warning",
+            dangerMode: true,
+            buttons: true,
+
+        })
+            .then(willDelete => {
+                if (willDelete) {
+                    swal("Deleted!", "Le rendez-vous a été supprimé !", "success")
+                        .then((value) => {
+                            $.ajax({
+                                url: 'http://51.255.168.8:8000/deletechargevariable/' + idforum,
+                                success: function (data) {
+                                    if (data = "deleted") {
+                                        window.location.replace(window.location.href);
+                                    }
+                                }
+
+
+                            })
+                        })
+                }
+                else {
+                }
+            });
+
+    }
+
+
+</script>
+
+{% endblock content %}

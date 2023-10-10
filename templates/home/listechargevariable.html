@@ -1,0 +1,105 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Liste des charges Variables </h5>
+                    <span class="d-block m-t-5"></span>
+                </div>
+                <div class="card-block table-border-style">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Salaire </th>
+                                <th>Crédit</th>
+                                <th>Marketing digitale</th>
+                                <th>Voip</th>
+                                <th>Fiches</th>
+                                <th>CRM</th>
+                                <th>Hébérgement</th>
+                                <th>Leads</th>
+                                <th>Voyant</th>
+                                <th>Autres</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in list %}
+
+                            <tr>
+
+                                <form action="" method="POST" id="form">
+                                    {% csrf_token %}
+
+                                    <td>{{ i.username }}</td>
+                                    <td>{{ i.salaire }}</td>
+                                    <td>{{ i.credit }}</td>
+                                    <td>{{ i.marketingdigitale }}</td>
+                                    <td>{{ i.voip }}</td>
+                                    <td>{{ i.fiches }}</td>
+                                    <td>{{ i.crm }}</td>
+                                    <td>{{ i.hebergement }}</td>
+                                    <td>{{ i.leads }}</td>
+                                    <td>{{ i.voyants }}</td>
+                                    <td>{{ i.autres }}</td>
+
+
+                            </tr>
+                            </form>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+    function supprimer(idforum) {
+        swal({
+            title: "Are you sure?",
+            text: "Are you sure that you want to delete this ?",
+            icon: "warning",
+            dangerMode: true,
+            buttons: true,
+
+        })
+            .then(willDelete => {
+                if (willDelete) {
+                    swal("Deleted!", "Your  file has been deleted!", "success")
+                        .then((value) => {
+                            $.ajax({
+                                url: 'http://51.255.168.8:8000/deleterendezvous/' + idforum,
+                                success: function (data) {
+                                    if (data = "deleted") {
+                                        window.location.replace(window.location.href);
+                                    }
+                                }
+
+
+                            })
+                        })
+                }
+                else {
+                }
+            });
+
+    }
+
+</script>
+
+
+{% endblock content %}

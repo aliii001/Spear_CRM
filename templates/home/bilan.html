@@ -1,0 +1,158 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="wrapper">
+                    <div class="row no-gutters">
+                        <div class="">
+                            <div class="contact-wrap w-100 p-md-5 p-4">
+                                <h3 class="mb-4">Déclaration d'une vente </h3>
+                                <div id="form-message-warning" class="mb-4"></div>
+
+                                <form method="POST" id="myFormId" name="contactForm" class="contactForm">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="name">Nom client</label>
+                                                {{form.nom_client}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="email">Prénom client</label>
+                                                {{form.prenom_client}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="subject">Age</label>
+                                                {{form.age}}
+                                                {% if form.age.errors %}
+                                                <div class="alert alert-danger alert-dismissible fade show"
+                                                    role="alert">
+                                                    {{ form.age.errors }}
+                                                </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="subject">Secteur d'activité</label>
+                                                {{form.secteur_activite}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Nom formation</label>
+                                                {{form.nom_formation}}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Nombre d'heures</label>
+                                                {{form.nbre_heure}}
+                                                {% if form.nbre_heure.errors %}
+                                                <div class="alert alert-danger alert-dismissible fade show"
+                                                    role="alert">
+                                                    {{ form.nbre_heure.errors }}
+                                                </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Prix formation</label>
+                                                {{form.prix_formation}}
+                                                {% if form.prix_formation.errors %}
+                                                <div class="alert alert-danger alert-dismissible fade show"
+                                                    role="alert">
+                                                    {{ form.prix_formation.errors }}
+                                                </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Date début</label>
+                                                {{form.date_debut}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Catégorie</label>
+                                                {{form.categorie}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Num de sécu</label>
+                                                {{form.numdesecu}}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Centre de formation</label>
+                                                {{form.centre_formation}}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Commentaire</label>
+                                                {{form.commentaire}}
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Heure</label>
+                                                <input class="form-control" type="time" name="heure" id="heure"
+                                                    value="{{heure}}" required>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <button id="submitForm" type="submit"
+                                                    class="btn btn-outline-primary">Valider</button>
+                                                <div class="submitting"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+
+
+
+
+
+</script>
+{% endblock content %}

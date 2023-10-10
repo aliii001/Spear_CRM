@@ -1,0 +1,158 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+
+
+{% endblock stylesheets %}
+
+{% block content %}
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="wrapper">
+                    <div class="row no-gutters">
+                        <div class="">
+                            <div class="contact-wrap w-100 p-md-5 p-4">
+                                <h3 class="mb-4">Suivi Energétique</h3>
+                                <div id="form-message-warning" class="mb-4"></div>
+
+                                <form method="POST" id="myFormId" name="contactForm" class="contactForm">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="name">Nombre d'appels</label>
+                                                {{form.nbappel}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="email">Nombre de fiches</label>
+                                                {{form.nbfiche}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="email">Nombre de minutes</label>
+                                                {{form.nbminute}}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">DMC</label>
+                                                {{form.dmc}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="subject">NRP</label>
+                                                {{form.nrp}}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Nombre hors cible technique</label>
+                                                {{form.nbhroscibletechnique}}
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Nombre des pas interessé</label>
+                                                {{form.nbpasinteresse}}
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Nombre des pas interessé cible</label>
+                                                {{form.nbpasinteressecilble}}
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Nombre des refus catégoriques</label>
+                                                {{form.nbrefuscategorique}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Nombre de répondeur</label>
+                                                {{form.nbrepondeur}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Nombre de vente</label>
+                                                {{form.nbvente}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Nombre des rendez-vous</label>
+                                                {{form.nbrendezvous}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Nombre des rappels</label>
+                                                {{form.nbrappel}}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <button id="submitForm" type="submit"
+                                                    class="btn btn-primary">Valider</button>
+                                                <div class="submitting"></div>
+                                            </div>
+                                        </div>
+
+
+
+
+                                        {% for message in messages %}
+                                        <div class="alert alert-primary" role="alert">
+                                            {{message}}
+                                            <a href="#" class="close" data-dismiss="alert"
+                                                aria-label="close">&times;</a>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+
+
+
+{% endblock content %}

@@ -1,0 +1,77 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+<script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" data-auto-a11y="true"></script>
+{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Liste des formulaires</h5>
+                </div>
+                <br>
+                <div class="col-md-3 ">
+
+                    &nbsp;&nbsp;&nbsp;<a href="{% url 'download_csv'%}"><i class="fas fa-file-csv"
+                            style='font-size:60px;color: green;'></i></a>
+
+
+                </div>
+
+                <div class="card-block table-border-style">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Prénom </th>
+                                    <th>Age</th>
+                                    <th>Téléphone</th>
+                                    <th>Profession</th>
+                                    <th>Secteur</th>
+                                    <th>Lieu</th>
+                                    <th>Formation</th>
+                                    <th>Loisir</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in data %}
+
+                                <tr>
+
+                                    <form action="" method="POST" id="form">
+                                        {% csrf_token %}
+                                        <td>{{ i.nom }}</td>
+                                        <td>{{ i.prenom }}</td>
+                                        <td>{{ i.age }}</td>
+                                        <td>{{ i.telphone }}</td>
+                                        <td>{{ i.profession }}</td>
+                                        <td>{{ i.secteur }}</td>
+                                        <td>{{ i.lieu }}</td>
+                                        <td>{{ i.formation }}</td>
+                                        <td>{{ i.loisir }}</td>
+
+                                </tr>
+                                </form>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock content %}

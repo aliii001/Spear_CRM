@@ -1,0 +1,114 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Liste des utilisateurs </h5>
+                    <span class="d-block m-t-5">Accepter pour donner l'accès a un utilisateur ou refuser pour le
+                        supprimer </span>
+                </div>
+                <div class="card-block table-border-style">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Nom d'utilisateur</th>
+                                    <th>Email</th>
+                                    <th>Prénom</th>
+                                    <th>Nom</th>
+                                    <th>Valider</th>
+                                    <th>Supprimer</th>
+                                    <th>Role</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in users %}
+
+                                <tr>
+
+                                    <form action="" method="POST" id="form">
+                                        {% csrf_token %}
+                                        <td>{{ i.username }}</td>
+                                        <td>{{ i.email }}</td>
+                                        <td>{{ i.first_name }}</td>
+                                        <td>{{ i.last_name }}</td>
+                                        {% if i.account.etat <= 0 %} <td><a href="{% url 'acceptuser' i.id%}"
+                                                class="btn btn-outline-primary" id="accept" data-toggle="tooltip"
+                                                type="submit" value="Accept" name="status">Accepter</a></td>
+                                            {% else %}
+                                            <td></td>
+                                            {% endif %}
+                                            <td><a onclick="supprimer({{i.id}})" class="btn btn-outline-danger"
+                                                    id="refuse" data-toggle="tooltip" type="submit" value="Refuse"
+                                                    name="status">Supprimer</a></td>
+                                            <td><a class="btn btn-outline-warning" data-toggle="tooltip"
+                                                    href="{% url 'rolebyuser' i.id%}">Role</a></td>
+                                </tr>
+                                </form>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+
+
+
+
+
+    function supprimer(idforum) {
+        swal({
+            title: "Are you sure?",
+            text: "Are you sure that you want to leave this page?",
+            icon: "warning",
+            dangerMode: true,
+            buttons: true,
+
+        })
+            .then(willDelete => {
+                if (willDelete) {
+                    swal("Deleted!", "Your  file has been deleted!", "success")
+                        .then((value) => {
+                            $.ajax({
+                                url: 'http://51.255.168.8:8000/deleteuser/' + idforum,
+                                success: function (data) {
+                                    if (data = "deleted") {
+                                        window.location.replace(window.location.href);
+                                    }
+                                }
+
+
+                            })
+                        })
+                }
+                else {
+                }
+            });
+
+    }
+
+
+</script>
+
+
+{% endblock content %}

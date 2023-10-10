@@ -1,0 +1,175 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+
+<style>
+    /* Google fonts import link */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+    .cc {
+        margin-top: 31px;
+        height: 46px;
+        display: flex;
+
+    }
+
+
+
+    .wrapper1 {
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #FFF;
+        border-radius: 12px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .wrapper1 span {
+        width: 70px;
+        text-align: center;
+        font-size: 55px;
+        font-weight: 600;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .wrapper1 span.num {
+        font-size: 30px;
+        border-right: 2px solid rgba(0, 0, 0, 0.2);
+        border-left: 2px solid rgba(0, 0, 0, 0.2);
+        pointer-events: none;
+    }
+</style>
+
+{% endblock stylesheets %}
+
+{% block content %}
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="wrapper">
+                    <div class="row no-gutters">
+                        <div class="contact-wrap w-100 p-md-5 p-4">
+                            <h3 class="mb-4">Modifier Catégorie</h3>
+                            <div id="form-message-warning" class="mb-4"></div>
+
+                            <form method="POST" id="myFormId" name="contactForm" class="contactForm">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="label" for="name">Nom Catégorie</label>
+                                            {{form.nomcategorie}}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="label" for="#">Prix d'unité (achat)</label>
+                                            <input class="form-control" type="number" name="prixunite_achat" step="any"
+                                                value="{{oldprixunite_achat}}" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="label" for="#">Prix d'unité (vente)</label>
+                                            <input class="form-control" type="number" name="prixunite_vente" step="any"
+                                                value="{{oldprixunite_vente}}" required>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="name">Quantité</label>
+                                                <input class="form-control" type="text" value="{{oldquantite}}"
+                                                    disabled>
+
+                                            </div>
+                                        </div> -->
+
+                                    <div class="col-md-6" style="display: flex;">
+
+                                        <label class="label" for="name"
+                                            style="padding-top: 38px;padding-right: 80px;">Quantité</label>
+                                        <div class="cc">
+                                            <div class="wrapper1">
+                                                <span class="minus">-</span>
+                                                <span class="num">{{oldquantite}}</span>
+                                                <input id="newqantite" type="number" name="newqantite"
+                                                    value="{{oldquantite}}" hidden>
+                                                <span class="plus">+</span>
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+
+
+
+
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <button id="submitForm" type="submit"
+                                                class="btn btn-primary">Valider</button>
+                                            <div class="submitting"></div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                    {% for message in messages %}
+                                    <div class="alert alert-primary" role="alert">
+                                        {{message}}
+                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+
+
+
+
+<script>
+    const plus = document.querySelector(".plus"),
+        minus = document.querySelector(".minus"),
+        num = document.querySelector(".num");
+    newqantite = document.getElementById("newqantite");
+
+    let a = {{ oldquantite }};
+    plus.addEventListener("click", () => {
+        a++;
+        a = (a < 10) ? "0" + a : a;
+        num.innerText = a;
+        newqantite.value = a;
+
+    });
+
+    minus.addEventListener("click", () => {
+        if (a > 0) {
+            a--;
+            a = (a < 10) ? "0" + a : a;
+            num.innerText = a;
+            newqantite.value = a;
+        }
+    });
+
+</script>
+{% endblock content %}

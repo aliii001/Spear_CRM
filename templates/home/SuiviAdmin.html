@@ -1,0 +1,181 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Suivi {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+
+
+{% endblock stylesheets %}
+
+
+
+{% block content %}
+
+
+
+
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="wrapper">
+                    <div class="row no-gutters">
+                        <div class="">
+                            <div class="contact-wrap w-100 p-md-5 p-4">
+                                <h3 class="mb-4">Suivi Forme</h3>
+                                <div id="form-message-warning" class="mb-4"></div>
+
+                                <form method="POST" id="myFormId" name="contactForm" class="contactForm">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="label" for="name">Donner le prix de minute </label>
+                                                <input min="0" step="any" type="number" name="prix_seconde"
+                                                    class="form-control" required>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <button id="submitForm" type="submit"
+                                                    class="btn btn-outline-primary">Valider</button>
+                                                <div class="submitting"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Liste des suivis</h5>
+                </div>
+                <div class="card-block table-border-style">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Nom d'utilisateur</th>
+                                    <th>Minutes consommées </th>
+                                    <th>Secondes consommées </th>
+                                    <th>Gain</th>
+                                    <th>Dépences</th>
+                                    <th>Différnces</th>
+                                    <th>Etat</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in data %}
+
+                                <tr>
+
+                                    <form action="" method="POST" id="form">
+                                        <td>{{ i.username }}</td>
+                                        <td>{{i.minutes}}</td>
+                                        <td>{{ i.secondes }}</td>
+                                        <td>{{ i.argent }}</td>
+                                        <td>{{ i.depences }}</td>
+                                        <td>{{ i.differnce }}</td>
+                                        {% if i.differnce <= 0 %} <td>
+                                            <h6 class="text-muted"><i class="fas fa-circle text-c-red f-10 m-r-15"></td>
+                                                    {% else %}
+                                                    <td>
+                                                        <h6 class="text-muted"><i
+                                                                class="fas fa-circle text-c-green f-10 m-r-15">
+                                                    </td>
+                                                    {% endif %}
+
+
+                                </tr>
+                                </form>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="container">
+    <div class="row justify-content-center">
+
+        <div class="card">
+            <div class="card-block table-border-style">
+                <center>
+                    <h4>Bénéfices et dépences par Produit</h4>
+                </center>
+                <canvas id="bilanchart" width="600" height="600"></canvas>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+
+    const ctx = document.getElementById('bilanchart').getContext('2d');
+    const lineChart = new Chart(ctx, {
+        type: "line",
+        data: {
+            labels: [{% for data in data %} '{{ data.username }}', {% endfor %}],
+    datasets: [
+        {
+            label: "Gain",
+            data: [{% for data in data %} '{{ data.argent }}', {% endfor %}],
+        fill: false,
+            borderColor: "rgb(50,205,50)",
+                lineTension: 0.1,
+                    borderWidth: 2,
+
+                        hoverBorderWidth: 3,
+                            hoverBorderColor: '#000'
+                }
+         , {
+        label: "Dépences",
+            data: [{% for data in data %} '{{ data.depences }}', {% endfor %}],
+    fill: false,
+        borderColor: "rgb(255,0,0)",
+            lineTension: 0.1,
+                borderWidth: 2,
+
+                    hoverBorderWidth: 3,
+                        hoverBorderColor: '#000'
+                }
+            ]
+        },
+    options: {
+        responsive: false
+    }
+        }
+
+    );
+
+
+
+</script>
+
+
+
+
+{% endblock content %}

@@ -1,0 +1,130 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Suivi {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="wrapper">
+                    <div class="">
+                        <div class="">
+                            <div class="contact-wrap w-100 p-md-5 p-4">
+                                <h3 class="mb-4">Charge Variable Form</h3>
+                                <div id="form-message-warning" class="mb-4"></div>
+
+                                <form method="POST" id="myFormId" name="contactForm" class="contactForm">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="name">Salaire</label>
+                                                {{form.salaire}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="email">Crédit</label>
+                                                {{form.credit}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="subject">Marketing digitale</label>
+                                                {{form.marketingdigitale}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Voip</label>
+                                                {{form.voip}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="subject">Fiches</label>
+                                                {{form.fiches}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">CRM</label>
+                                                {{form.crm}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Hébergement</label>
+                                                {{form.hebergement}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">leads</label>
+                                                {{form.leads}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Voyant</label>
+                                                {{form.voyants}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Autres</label>
+                                                {{form.autres}}
+                                            </div>
+                                        </div>
+
+
+
+
+
+
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <button id="submitForm" type="submit"
+                                                    class="btn btn-primary">Valider</button>
+                                                <div class="submitting"></div>
+                                            </div>
+                                        </div>
+                                        {% for message in messages %}
+                                        <div class="alert alert-primary" role="alert">
+                                            {{message}}
+                                            <a href="#" class="close" data-dismiss="alert"
+                                                aria-label="close">&times;</a>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </form>
+
+
+
+
+
+
+
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

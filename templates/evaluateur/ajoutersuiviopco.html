@@ -1,0 +1,286 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+
+
+{% endblock stylesheets %}
+
+{% block content %}
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="wrapper">
+                    <div class="row no-gutters">
+                        <div class="">
+                            <div class="contact-wrap w-100 p-md-5 p-4">
+                                <h3 class="mb-4">Suivi Opco</h3>
+                                <div id="form-message-warning" class="mb-4"></div>
+
+                                <form method="POST" id="myFormId" name="contactForm" class="contactForm">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="name">Nombre d'appels</label>
+                                                {{form.nbappel}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="email">Nombre de fiches</label>
+                                                {{form.nbfiche}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="email">Nombre de minutes</label>
+                                                {{form.nbminute}}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">DMC</label>
+                                                {{form.dmc}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="subject">NRP</label>
+                                                {{form.nrp}}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Nombre hors cible régime</label>
+                                                {{form.nbhroscibleregime}}
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Nombre des pas interessé</label>
+                                                {{form.nbpasinteresse}}
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Nombre des pas interessé cible</label>
+                                                {{form.nbpasinteressecilble}}
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Nombre des refus catégoriques</label>
+                                                {{form.nbrefuscategorique}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Nombre de répondeur</label>
+                                                {{form.nbrepondeur}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Nombre de vente</label>
+                                                {{form.nbvente}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Nombre des rendez-vous</label>
+                                                {{form.nbrendezvous}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Nombre des rappels</label>
+                                                {{form.nbrappel}}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <button id="submitForm" type="submit"
+                                                    class="btn btn-primary">Valider</button>
+                                                <div class="submitting"></div>
+                                            </div>
+                                        </div>
+
+
+
+
+                                        {% for message in messages %}
+                                        <div class="alert alert-primary" role="alert">
+                                            {{message}}
+                                            <a href="#" class="close" data-dismiss="alert"
+                                                aria-label="close">&times;</a>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Liste des Suivi Opco .</h5>
+
+                </div>
+                <div class="card-block table-border-style">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Nombre d'appels</th>
+                                    <th>Nombre de fiches</th>
+                                    <th>Nombre de minutes </th>
+                                    <th>DMC</th>
+                                    <th>NRP</th>
+                                    <th>Nombre hors cible régime</th>
+
+                                    <th>Nombre des pas interessé</th>
+                                    <th>Nombre des pas interessé cible</th>
+                                    <th>Nombre des refus catégoriques</th>
+                                    <th>Nombre de répondeur<< /th>
+                                    <th>Nombre de vente</th>
+                                    <th>Nombre des rendez-vous</th>
+                                    <th>Nombre des rappels</th>
+                                    <th>Modifier</th>
+                                    <th>Supprimer</th>
+                                    <!--           <th>Accepter</th>
+                                    <th>Annuler</th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in list %}
+
+                                <tr>
+
+                                    <form action="" method="POST" id="form">
+                                        {% csrf_token %}
+
+                                        <td>{{ i.nbappel }}</td>
+                                        <td>{{ i.nbfiche }}</td>
+                                        <td>{{ i.nbminute }}</td>
+                                        <td>{{ i.dmc }}</td>
+                                        <td>{{ i.nrp }}</td>
+                                        <td>{{ i.nbhroscibleregime }}</td>
+
+                                        <td>{{ i.nbpasinteresse }}</td>
+                                        <td>{{ i.nbpasinteressecilble }}</td>
+                                        <td>{{ i.nbrefuscategorique }}</td>
+                                        <td>{{ i.nbrepondeur }}</td>
+                                        <td>{{ i.nbvente }}</td>
+                                        <td>{{ i.nbrendezvous }}</td>
+                                        <td>{{ i.nbrappel }}</td>
+
+                                        <td><a href="{% url  'modifiersuiviopco' i.id %}"
+                                                class="btn btn-outline-primary" data-toggle="tooltip">Modifier</a></td>
+                                        <td><a onclick="supprimer({{i.id}})" class="btn btn-outline-danger" id="refuse"
+                                                data-toggle="tooltip" type="submit" value="Refuse"
+                                                name="status">Supprimer</a></td>
+
+                                        <!--    {% if i.etat == 1 %}
+                                        <td><a href="{% url  'approverendezvousenergie' i.id %}"
+                                                class="btn btn-outline-primary" data-toggle="tooltip">Accepter</a></td>
+                                        <td><a href="{% url  'ignorerendezvousenergie' i.id %}"
+                                                class="btn btn-outline-danger" id="refuse" data-toggle="tooltip"
+                                                type="submit" value="Refuse" name="status">Annuler</a></td>
+                                        {% elif i.etat == 2 %}
+                                        <td></td>
+                                        <td><a href="{% url  'ignorerendezvousenergie' i.id %}"
+                                                class="btn btn-outline-danger" id="refuse" data-toggle="tooltip"
+                                                type="submit" value="Refuse" name="status">Annuler</a></td>
+                                        {% elif i.etat == 0 %}
+                                        <td><a href="{% url  'approverendezvousenergie' i.id %}"
+                                                class="btn btn-outline-primary" data-toggle="tooltip">Accepter</a>
+                                        </td>
+                                        <td></td>
+
+                                        {% endif %} -->
+
+                                </tr>
+                                </form>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+
+<script>
+
+
+
+
+
+    function supprimer(idforum) {
+        swal({
+            title: "Are you sure?",
+            text: "Are you sure that you want to leave this page?",
+            icon: "warning",
+            dangerMode: true,
+            buttons: true,
+
+        })
+            .then(willDelete => {
+                if (willDelete) {
+                    swal("Deleted!", "Le rendez-vous a été supprimé !", "success")
+                        .then((value) => {
+                            $.ajax({
+                                url: 'http://51.255.168.8:8000/deletesuiviopco/' + idforum,
+                                success: function (data) {
+                                    if (data = "deleted") {
+                                        window.location.replace(window.location.href);
+                                    }
+                                }
+
+
+                            })
+                        })
+                }
+                else {
+                }
+            });
+
+    }
+
+
+</script>
+
+
+
+
+{% endblock content %}

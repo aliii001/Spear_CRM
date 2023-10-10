@@ -1,0 +1,148 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Bilans</h5>
+                    <span class="d-block m-t-5">Liste des bilans ajouté par
+                        <code>{{request.user.username}}</code>.</span>
+                    <p>Le nombre de bilan est : {{total}}</p>
+                </div>
+                <div class="card-block table-border-style">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+
+                                    <th>Nom client </th>
+                                    <th>Prénom client</th>
+                                    <th>Age</th>
+                                    <th>Secteur d'activité</th>
+                                    <th>Nom formation</th>
+                                    <th>Nombre d'heures</th>
+                                    <th>Prix formation</th>
+                                    <th>Date début</th>
+                                    <th>Catégorie</th>
+                                    <th>Num de sécu</th>
+                                    <th>Centre de formation</th>
+                                    <th>Heure</th>
+                                    <th>Commentaire</th>
+                                    <th>Nom agent</th>
+                                    <th>Prénom agent</th>
+                                    <th>Modifier bilan</th>
+                                    <th>Supprimer bilan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in bilans %}
+
+                                <tr>
+
+                                    <form action=" " method="POST">
+                                        {% csrf_token %}
+
+                                        <td>{{ i.nom_client }}</td>
+                                        <td>{{ i.prenom_client }}</td>
+                                        <td>{{ i.age }}</td>
+                                        <td>{{i.secteur_activite}}</td>
+                                        <td>{{ i.nom_formation }}</td>
+                                        <td>{{ i.nbre_heure }}</td>
+                                        <td>{{ i.prix_formation }}</td>
+                                        <td>{{ i.date_debut }}</td>
+                                        <td>{{ i.categorie }}</td>
+                                        <td>{{ i.numdesecu }}</td>
+                                        <td>{{ i.centre_formation }}</td>
+                                        <td>{{ i.heure }}</td>
+                                        <td>{{ i.commentaire }}</td>
+                                        <td>{{ i.nom_agent }}</td>
+                                        <td>{{ i.prenom_agent }}</td>
+                                        <td><a href="{% url  'updateBilan' i.id %}" class="btn btn-outline-primary"
+                                                data-toggle="tooltip">Modifier</a></td>
+                                        <td><a onclick="supprimer({{i.id}})" class="btn btn-outline-danger"
+                                                data-toggle="tooltip" id="submitForm">Supprimer</a></td>
+
+                                </tr>
+                                </form>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+    $('#submitForm').on('click', function (e) {
+
+        e.preventDefault();
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+
+
+                window.location = e.target.href
+            }
+        });
+    });
+
+
+
+
+
+    function supprimer(idforum) {
+        swal({
+            title: "Are you sure?",
+            text: "Are you sure that you want to leave this page?",
+            icon: "warning",
+            dangerMode: true,
+            buttons: true,
+
+        })
+            .then(willDelete => {
+                if (willDelete) {
+                    swal("Deleted!", "Your  file has been deleted!", "success")
+                        .then((value) => {
+                            $.ajax({
+                                url: 'http://51.255.168.8:8000/deleteBilan/' + idforum,
+                                success: function (data) {
+                                    if (data = "deleted") {
+                                        window.location.replace(window.location.href);
+                                    }
+                                }
+
+
+                            })
+                        })
+                }
+                else {
+                }
+            });
+
+    }
+
+</script>
+
+{% endblock content %}

@@ -1,0 +1,369 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+
+
+{% endblock stylesheets %}
+
+{% block content %}
+<div class="pcoded-content">
+    <div class="pcoded-inner-content" style="display: flex;flex-wrap: wrap;flex-shrink: 0;">
+        <div class="col-xl-6" style="flex: 1 1 0;">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Liste des rendez-vous OPCO</h5>
+                </div>
+                <div class="card-block table-border-style">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+
+                                    <th>Username </th>
+                                    <th>Nombre des rendez-vous</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in list_rvopco %}
+
+                                <tr>
+
+                                    <form action=" " method="POST">
+                                        {% csrf_token %}
+
+                                        <td>{{ i.username }}</td>
+                                        <td>{{ i.rv_opco_count }}</td>
+
+
+
+
+                                </tr>
+                                <tr>
+
+                                    <form action=" " method="POST">
+                                        {% csrf_token %}
+
+                                        <td>{{ i.username }}</td>
+                                        <td>{{ i.rv_opco_count }}</td>
+
+
+
+
+                                </tr>
+                                </form>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-6" style="flex: 1 1 0;">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Liste des rendez-vous Energie</h5>
+                </div>
+                <div class="card-block table-border-style">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+
+                                    <th>Username </th>
+                                    <th>Nombre des rendez-vous</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in list_rvenergie %}
+
+                                <tr>
+
+                                    <form action=" " method="POST">
+                                        {% csrf_token %}
+
+                                        <td>{{ i.username }}</td>
+                                        <td>{{ i.rv_energie_count }}</td>
+
+
+
+                                </tr>
+                                </form>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-6" style="flex: 1 1 0;">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Liste des rendez-vous Mutuelle</h5>
+                </div>
+                <div class="card-block table-border-style">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+
+                                    <th>Username </th>
+                                    <th>Nombre des rendez-vous</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in list_rvmutuelle %}
+
+                                <tr>
+
+                                    <form action=" " method="POST">
+                                        {% csrf_token %}
+
+                                        <td>{{ i.username }}</td>
+                                        <td>{{ i.rv_mutuelle_count }}</td>
+
+
+
+                                </tr>
+                                </form>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-6" style="flex: 1 1 0;">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Liste des rendez-vous Mutuelle Vente</h5>
+                </div>
+                <div class="card-block table-border-style">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+
+                                    <th>Username </th>
+                                    <th>Nombre des rendez-vous</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in list_rv_mv %}
+
+                                <tr>
+
+                                    <form action=" " method="POST">
+                                        {% csrf_token %}
+
+                                        <td>{{ i.username }}</td>
+                                        <td>{{ i.rv_mutuellevente_count }}</td>
+
+
+
+                                </tr>
+                                </form>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-6" style="flex: 1 1 0;">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Liste des rendez-vous Voyance</h5>
+                </div>
+                <div class="card-block table-border-style">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+
+                                    <th>Username </th>
+                                    <th>Nombre des rendez-vous</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in list_rvvoyance %}
+
+                                <tr>
+
+                                    <form action=" " method="POST">
+                                        {% csrf_token %}
+
+                                        <td>{{ i.username }}</td>
+                                        <td>{{ i.rv_voyance_count }}</td>
+
+
+
+                                </tr>
+                                </form>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-6" style="flex: 1 1 0;">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Liste des rendez-vous CPF</h5>
+                </div>
+                <div class="card-block table-border-style">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+
+                                    <th>Username </th>
+                                    <th>Nombre des rendez-vous</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in list_rvcpf %}
+
+                                <tr>
+
+                                    <form action=" " method="POST">
+                                        {% csrf_token %}
+
+                                        <td>{{ i.username }}</td>
+                                        <td>{{ i.rv_cpf_count }}</td>
+
+
+
+                                </tr>
+                                </form>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+
+
+<div class="pcoded-content">
+    <div class="pcoded-inner-content" style="display: flex;flex-wrap: wrap;flex-shrink: 0;">
+        <div class="col-xl-6" style="flex: 1 1 0;">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Liste des ventes CPF</h5>
+                </div>
+                <div class="card-block table-border-style">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+
+                                    <th>Username </th>
+                                    <th>Prix</th>
+                                    <th>Gain spear</th>
+                                    <th>Nombre de ventes</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in vente_cpf %}
+
+                                <tr>
+
+                                    <form action=" " method="POST">
+                                        {% csrf_token %}
+
+                                        <td>{{ i.username }}</td>
+                                        <td>{{ i.prix }}</td>
+                                        <td>{{ i.prix_spear }}</td>
+                                        <td>{{ i.vente_cpf_count }}</td>
+
+
+
+
+                                </tr>
+
+                                </form>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-6" style="flex: 1 1 0;">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Liste des ventes Mutuelle</h5>
+                </div>
+                <div class="card-block table-border-style">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+
+                                    <th>Username </th>
+                                    <th>Prix</th>
+                                    <th>Nombre de ventes</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in vente_mutuelle_vente %}
+
+                                <tr>
+
+                                    <form action=" " method="POST">
+                                        {% csrf_token %}
+
+                                        <td>{{ i.username }}</td>
+                                        <td>{{ i.prix }}</td>
+                                        <td>{{ i.vente_ecommerce_count }}</td>
+
+
+
+                                </tr>
+                                </form>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+{% endblock content %}

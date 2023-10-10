@@ -1,0 +1,128 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="wrapper">
+                    <div class="">
+                        <div class="">
+                            <div class="contact-wrap w-100 p-md-5 p-4">
+                                <h3 class="mb-4">Google Maps</h3>
+                                <div class="container">
+                                    <div class="col-xl-6 offset-md-4">
+                                        <form class="form-inline" action="" method="POST">
+                                            {% csrf_token%}
+
+                                            <input class="form-control" type="text" placeholder="rechercher"
+                                                name="address" required>
+                                            <button class="btn btn-outline-primary my-2 my-sm-0 mx-3" type="submit"
+                                                aria-placeholder="afaf">Rechercher</button>
+                                        </form>
+
+                                    </div>
+                                    <br>
+                                    {% for message in messages %}
+                                    <div class="col-xl-4 offset-md-4">
+                                        <div class="alert alert-danger">
+                                            {{message}}
+                                            <a href="#" class="close" data-dismiss="alert"
+                                                aria-label="close">&times;</a>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+
+                                    <div class="row justify-content-md-center">
+
+                                        <div class="col-xl-9">
+                                            {{m|safe}}
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+
+
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Liste des clients dans la ville {{address}}</h5>
+                    <span class="d-block m-t-5">Nombre de clients: {{a}}</span>
+
+                </div>
+                <div class="card-block table-border-style">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Mobile</th>
+                                    <th>Prénom client </th>
+                                    <th>Nom client</th>
+                                    <th>Genre</th>
+                                    <th>Ville</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in data %}
+
+                                <tr>
+                                    <td>{{ i.mobile }}</td>
+                                    <td>{{ i.prenom }}</td>
+                                    <td>{{ i.nom }}</td>
+
+                                    <td>{{ i.genre }}</td>
+                                    <td>{{i.ville}}</td>
+
+
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock content%}

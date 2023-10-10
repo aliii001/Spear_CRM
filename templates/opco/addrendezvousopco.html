@@ -1,0 +1,361 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+
+
+{% endblock stylesheets %}
+
+{% block content %}
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="wrapper">
+                    <div class="row no-gutters">
+                        <div class="">
+                            <div class="contact-wrap w-100 p-md-5 p-4">
+                                <h3 class="mb-4">Rendez vous Forme</h3>
+                                <div id="form-message-warning" class="mb-4"></div>
+
+                                <form method="POST" id="myFormId" name="contactForm" class="contactForm">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="name">Nom entreprise</label>
+                                                {{form.nom_entreprise}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="email">Adresse</label>
+                                                {{form.adresse}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="subject">Ville</label>
+                                                {{form.ville}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Code postal</label>
+                                                {{form.code_postal}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="subject">Téléphone</label>
+                                                {{form.telephone}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Email</label>
+                                                {{form.email}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">siret</label>
+                                                {{form.siret}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Code ape</label>
+                                                {{form.codeape}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Secteur activité</label>
+                                                {{form.secteur_activite}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6" id="Yes" style="display: none;">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Identifiant</label>
+                                                <input name="identifiant" id="identifiant" type="number"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6" id="Yes1" style="display: none;">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Mot de passe</label>
+                                                <input name="pass" id="pass" type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Téléphone comptable</label>
+                                                {{form.telephone_comptable}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Formation souhaité</label>
+                                                {{form.formation_souhaite}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Effectif salarié</label>
+                                                {{form.effectife_salarie}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Dont</label>
+                                                {{form.dont}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Date</label>
+                                                {{form.date_rendez_vous}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Date d'appel</label>
+                                                {{form.date_appel}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Date de rappel</label>
+                                                {{form.date_rappel}}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Heure</label>
+                                                <input class="form-control" type="time" name="heure" id="heure"
+                                                    required>
+                                            </div>
+                                        </div>
+
+
+
+
+
+
+
+
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <button id="submitForm" type="submit"
+                                                    class="btn btn-primary">Valider</button>
+                                                <div class="submitting"></div>
+                                            </div>
+                                        </div>
+                                        {% for message in messages %}
+                                        <div class="alert alert-primary" role="alert">
+                                            {{message}}
+                                            <a href="#" class="close" data-dismiss="alert"
+                                                aria-label="close">&times;</a>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Liste des Charges variables.</h5>
+
+                </div>
+                <div class="card-block table-border-style">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Nom entreprise</th>
+                                    <th>Adresse </th>
+                                    <th>Ville</th>
+                                    <th>Code postal</th>
+                                    <th>Téléphone</th>
+                                    <th>Email</th>
+                                    <th>siret</th>
+                                    <th>Code ape</th>
+                                    <th>Identifiant</th>
+                                    <th>Mot de passe</th>
+                                    <th>telephone_comptable</th>
+                                    <th>formation_souhaite</th>
+                                    <th>effectif_salarie</th>
+                                    <th>Dont</th>
+                                    <th>Date rendez-vous</th>
+                                    <th>Date d'appel</th>
+                                    <th>Date de rappel</th>
+                                    <th>Heure</th>
+                                    <th>Modifier</th>
+                                    <th>Supprimer</th>
+                                    <th>Accepter</th>
+                                    <th>Annuler</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in list %}
+
+                                <tr>
+
+                                    <form action="" method="POST" id="form">
+                                        {% csrf_token %}
+
+                                        <td>{{ i.nom_entreprise }}</td>
+                                        <td>{{ i.adresse }}</td>
+                                        <td>{{ i.ville }}</td>
+                                        <td>{{ i.code_postal }}</td>
+                                        <td>{{ i.telephone }}</td>
+                                        <td>{{ i.email }}</td>
+                                        <td>{{ i.siret }}</td>
+                                        <td>{{ i.codeape }}</td>
+                                        <td>{{ i.identifiant }}</td>
+                                        <td>{{ i.mdp }}</td>
+                                        <td>{{ i.telephone_comptable }}</td>
+                                        <td>{{ i.formation_souhaite }}</td>
+                                        <td>{{ i.effectife_salarie }}</td>
+                                        <td>{{ i.dont }}</td>
+                                        <td>{{ i.date_rendez_vous }}</td>
+                                        <td>{{ i.date_appel }}</td>
+                                        <td>{{ i.date_rappel }}</td>
+                                        <td>{{ i.heure }}</td>
+
+                                        <td><a href="{% url  'updaterendezvousopco' i.id %}"
+                                                class="btn btn-outline-primary" data-toggle="tooltip">Modifier</a></td>
+                                        <td><a onclick="supprimer({{i.id}})" class="btn btn-outline-danger" id="refuse"
+                                                data-toggle="tooltip" type="submit" value="Refuse"
+                                                name="status">Supprimer</a></td>
+
+                                        {% if i.etat == 1 %}
+                                        <td><a href="{% url  'approverendezvousopco' i.id %}"
+                                                class="btn btn-outline-primary" data-toggle="tooltip">Accepter</a></td>
+                                        <td><a href="{% url  'ignorerendezvousopco' i.id %}"
+                                                class="btn btn-outline-danger" id="refuse" data-toggle="tooltip"
+                                                type="submit" value="Refuse" name="status">Annuler</a></td>
+                                        {% elif i.etat == 2 %}
+                                        <td></td>
+                                        <td><a href="{% url  'ignorerendezvousopco' i.id %}"
+                                                class="btn btn-outline-danger" id="refuse" data-toggle="tooltip"
+                                                type="submit" value="Refuse" name="status">Annuler</a></td>
+                                        {% elif i.etat == 0 %}
+                                        <td><a href="{% url  'approverendezvousopco' i.id %}"
+                                                class="btn btn-outline-primary" data-toggle="tooltip">Accepter</a>
+                                        </td>
+                                        <td></td>
+
+                                        {% endif %}
+
+                                </tr>
+                                </form>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+        // alert($('#StockageForm.profession'))
+
+        $('#id_secteur_activite').change(function () {
+            profession_value = document.getElementById("id_secteur_activite").value
+
+            if (profession_value == 'OUI') {
+                document.getElementById("Yes").style.display = "block";
+                document.getElementById("Yes1").style.display = "block";
+
+            }
+            else if (profession_value == 'NON') {
+                document.getElementById("Yes").style.display = "none";
+                document.getElementById("Yes1").style.display = "none";
+
+            }
+            else {
+
+                document.getElementById("Yes").style.display = "none";
+                document.getElementById("Yes1").style.display = "none";
+
+            }
+
+
+
+        });
+    });
+
+
+
+
+
+</script>
+
+
+
+<script>
+
+
+
+
+
+    function supprimer(idforum) {
+        swal({
+            title: "Are you sure?",
+            text: "Are you sure that you want to leave this page?",
+            icon: "warning",
+            dangerMode: true,
+            buttons: true,
+
+        })
+            .then(willDelete => {
+                if (willDelete) {
+                    swal("Deleted!", "Le rendez-vous a été supprimé !", "success")
+                        .then((value) => {
+                            $.ajax({
+                                url: 'http://51.255.168.8:8000/deleterendezvousopco/' + idforum,
+                                success: function (data) {
+                                    if (data = "deleted") {
+                                        window.location.replace(window.location.href);
+                                    }
+                                }
+
+
+                            })
+                        })
+                }
+                else {
+                }
+            });
+
+    }
+
+
+</script>
+
+{% endblock content %}

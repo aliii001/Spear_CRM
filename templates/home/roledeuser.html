@@ -1,0 +1,160 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <div class="col-xl-12">
+            <div class="card">
+
+                <div class="card-header" align="center">
+
+                    <h5>Choisissez l'un des rôles suivants.</h5>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="row" style="margin-top: 50px;margin-bottom: 20px;margin-left:25%;">
+                            <div class="col-6">
+                                <select name="group" id="group" class="form-control" required>
+                                    <option disabled selected value="">Choisir un role</option>
+
+                                    {% for i in groups %}
+                                    <option value="{{i}}">{{i}}</option>
+                                    {% endfor %}
+                                </select>
+
+                            </div>
+
+                            <button class="btn btn-outline-primary">Valider</button>
+
+
+
+
+                            <br>
+
+
+
+                        </div>
+
+
+
+                    </form>
+
+
+
+                </div>
+                <div class="card-block table-border-style">
+                    <h5>Rôle actuel de {{user.username}} est <u style="color: green;">{{role}}</u> </h5>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="back-button">
+    <div class="arrow-wrap">
+        <span class="arrow-part-1"></span>
+        <span class="arrow-part-2"></span>
+        <span class="arrow-part-3"></span>
+    </div>
+</div>
+
+<script>
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+
+    var backButton = document.querySelector('.back-button')
+
+    function backAnim() {
+        if (backButton.classList.contains('back')) {
+            backButton.classList.remove('back');
+        }
+        else {
+            backButton.classList.add('back');
+            setTimeout(backAnim, 1000);
+            sleep(1000).then(() => { window.location.href = "http://127.0.0.1:8000/allUsers/" });
+
+
+        }
+    }
+    backButton.addEventListener('click', backAnim);
+
+
+</script>
+
+
+<style>
+    .back-button {
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        top: 10%;
+        right: 5%;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        border: #03a9f4 1px solid;
+        overflow: hidden;
+        transition: background 0.3s ease;
+    }
+
+    .back-button.back .arrow-wrap {
+        left: -50%;
+    }
+
+    .back-button:hover {
+        background: #03a9f4;
+    }
+
+    .back-button:hover .arrow-wrap span {
+        background: #fff;
+    }
+
+    .back-button .arrow-wrap {
+        display: block;
+        position: absolute;
+        height: 70%;
+        width: 70%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        transition: left 0.3s ease;
+    }
+
+    .back-button .arrow-wrap span {
+        height: 1px;
+        left: 0;
+        top: 50%;
+        background: #03a9f4;
+        position: absolute;
+        display: block;
+        transition: background 0.3s ease;
+    }
+
+    .back-button .arrow-wrap .arrow-part-1 {
+        width: 100%;
+        transform: translate(0, -50%);
+    }
+
+    .back-button .arrow-wrap .arrow-part-2 {
+        width: 60%;
+        transform: rotate(-45deg);
+        transform-origin: 0 0;
+    }
+
+    .back-button .arrow-wrap .arrow-part-3 {
+        width: 60%;
+        transform: rotate(45deg);
+        transform-origin: 0 0;
+    }
+</style>
+
+{% endblock content %}

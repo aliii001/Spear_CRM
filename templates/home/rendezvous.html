@@ -1,0 +1,245 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+
+
+{% endblock stylesheets %}
+
+{% block content %}
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="wrapper">
+                    <div class="row no-gutters">
+                        <div class="">
+                            <div class="contact-wrap w-100 p-md-5 p-4">
+                                <h3 class="mb-4">Rendez-vous Forme</h3>
+                                <div id="form-message-warning" class="mb-4"></div>
+
+                                <form method="POST" id="myFormId" name="contactForm" class="contactForm">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="name">Nom client</label>
+                                                {{form.nom_client}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="email">Prénom client</label>
+                                                {{form.prenom_client}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="subject">numéro téléphone</label>
+                                                {{form.phone_number}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Secteur</label>
+                                                {{form.secteur}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="subject">Date rendez-vous</label>
+                                                {{form.date_rendez_vous}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Date rendez-vous prochaine</label>
+                                                {{form.date_rendez_vous_prochain}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Objet</label>
+                                                {{form.objet}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Période exercise</label>
+                                                {{form.periode_exercise}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Tranche d'age</label>
+                                                {{form.trancheage}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Num de sécu</label>
+                                                {{form.numdesecu}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Formation souhaitée</label>
+                                                {{form.formationsouhaitee}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Date d'appel</label>
+                                                {{form.date_appel}}
+                                            </div>
+                                        </div>
+
+
+
+
+
+
+
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <button id="submitForm" type="submit"
+                                                    class="btn btn-primary">Valider</button>
+                                                <div class="submitting"></div>
+                                            </div>
+                                        </div>
+                                        {% for message in messages %}
+                                        <div class="alert alert-primary" role="alert">
+                                            {{message}}
+                                            <a href="#" class="close" data-dismiss="alert"
+                                                aria-label="close">&times;</a>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Liste des Rendez-vous.</h5>
+
+                </div>
+                <div class="card-block table-border-style">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Nom Client</th>
+                                    <th>Prénom Client</th>
+                                    <th>Numéro</th>
+                                    <th>Secteur</th>
+                                    <th>Date rendez-vous</th>
+                                    <th>Date rendez-vous prochaine</th>
+                                    <th>Objet</th>
+                                    <th>Période d'exercise</th>
+                                    <th>Tranche d'age</th>
+                                    <th>Num de sécu</th>
+                                    <th>Formation souhaitée</th>
+                                    <th>Date d'appel</th>
+                                    <th>Modifier</th>
+                                    <th>Supprimer</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in list %}
+
+                                <tr>
+
+                                    <form action="" method="POST" id="form">
+                                        {% csrf_token %}
+
+                                        <td>{{ i.nom_client }}</td>
+                                        <td>{{ i.prenom_client }}</td>
+                                        <td>{{ i.phone_number }}</td>
+                                        <td>{{ i.secteur }}</td>
+                                        <td>{{ i.date_rendez_vous }}</td>
+                                        <td>{{ i.date_rendez_vous_prochain }}</td>
+                                        <td>{{ i.objet }}</td>
+                                        <td>{{ i.periode_exercise }}</td>
+                                        <td>{{ i.trancheage }}</td>
+                                        <td>{{ i.numdesecu }}</td>
+                                        <td>{{ i.formationsouhaitee }}</td>
+                                        <td>{{ i.date_appel }}</td>
+
+                                        <td><a href="{% url  'updateRendezvous' i.id %}" class="btn btn-outline-primary"
+                                                data-toggle="tooltip">Modifier</a></td>
+                                        <td><a onclick="supprimer({{i.id}})" class="btn btn-outline-danger" id="refuse"
+                                                data-toggle="tooltip" type="submit" value="Refuse"
+                                                name="status">Supprimer</a></td>
+
+
+                                </tr>
+                                </form>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+
+
+
+
+
+    function supprimer(idforum) {
+        swal({
+            title: "Are you sure?",
+            text: "Are you sure that you want to leave this page?",
+            icon: "warning",
+            dangerMode: true,
+            buttons: true,
+
+        })
+            .then(willDelete => {
+                if (willDelete) {
+                    swal("Deleted!", "Le rendez-vous a été supprimé !", "success")
+                        .then((value) => {
+                            $.ajax({
+                                url: 'http://51.255.168.8:8000/deleterendezvous/' + idforum,
+                                success: function (data) {
+                                    if (data = "deleted") {
+                                        window.location.replace(window.location.href);
+                                    }
+                                }
+
+
+                            })
+                        })
+                }
+                else {
+                }
+            });
+
+    }
+
+
+</script>
+
+{% endblock content %}

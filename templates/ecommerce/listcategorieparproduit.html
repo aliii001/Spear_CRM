@@ -1,0 +1,90 @@
+{% extends "layouts/base.html" %}
+{% load custom_template_tags %}
+
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Liste des catégories du produit {{name}}</h5>
+                </div>
+                <div class="card-block table-border-style">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Nom catégorie</th>
+                                    <th>Quantité</th>
+                                    <th>Prix unité (achat)</th>
+                                    <th>Prix unité (vente)</th>
+                                    <th>Dépences</th>
+                                    <th>Bénéfices</th>
+                                    <th>Nbre de vente</th>
+                                    <th>Modifier</th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                {% for i in list %}
+                                <!-- {% if i.etat == 1 %}
+                                {% setvar "rgb(246, 240, 161)" as color %}
+
+
+                                {% elif i.etat == 2 %}
+                                {% setvar "rgb(155, 246, 135)" as color %}
+
+                                {% elif i.etat == 0 %}
+                                {% setvar "rgb(241, 83, 83)" as color %}
+
+
+                                {% endif %} -->
+
+
+                                <tr>
+
+                                    <form action="" method="POST" id="form">
+                                        {% csrf_token %}
+                                        <td>{{ i.nomcategorie }}</td>
+                                        <td>{{ i.quantite }}</td>
+                                        <td>{{ i.prixunite_achat }}</td>
+                                        <td>{{ i.prixunite_vente }}</td>
+                                        <td>{{ i.depences }}</td>
+                                        <td>{{ i.benefices }}</td>
+                                        <td>{{ i.Nb_Vente }}</td>
+                                        <td><a href="{% url  'modfiercategorie' i.id %}" class="btn btn-outline-primary"
+                                                data-toggle="tooltip">Modifier</a>
+                                        </td>
+
+                                </tr>
+                                </form>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+
+<style>
+    td {}
+</style>
+{% endblock content %}

@@ -1,0 +1,121 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="wrapper">
+
+                    <div class="">
+                        <div class="contact-wrap w-100 p-md-5 p-4">
+                            <h3 class="mb-4">Formulaire de formation </h3>
+                            <div id="form-message-warning" class="mb-4"></div>
+
+                            <form method="POST" id="myFormId" name="contactForm" class="contactForm">
+                                {% csrf_token %}
+
+                                <div class="row">
+
+                                    <div class="col-md-5 ">
+                                        <div class="form-group">
+                                            <label class="label">Age</label>
+                                            <select class="form-control" name="age" id="age" required>
+                                                <option disabled selected value="">Choisir age</option>
+                                                <option value="0">18-30</option>
+                                                <option value="1">31-50</option>
+                                                <option value="2">51-65</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label class="label" for="email">Domaine</label>
+                                            <select class="form-control" name="domaine" id="domaine" required>
+                                                <option disabled selected value="">Choisir un domaine</option>
+                                                <option value="0">Administratif</option>
+                                                <option value="1">Agro-alimentaire</option>
+                                                <option value="2">Artisan</option>
+                                                <option value="3">Automobile</option>
+                                                <option value="4">Aéronautique</option>
+                                                <option value="5">Banque/Finance/Assurance</option>
+                                                <option value="6">Chimie/Biologie</option>
+                                                <option value="7">Commerce</option>
+                                                <option value="8">Conseils et Communication</option>
+                                                <option value="9">Design et décoration</option>
+                                                <option value="10">Droit et justice</option>
+                                                <option value="11">Electrique</option>
+                                                <option value="12">Electronique et robotique</option>
+                                                <option value="13">Energie</option>
+                                                <option value="14">Enseignement</option>
+                                                <option value="15">Informatique</option>
+                                                <option value="16">Intelligence artificielle</option>
+                                                <option value="17">Journalisme et communication</option>
+                                                <option value="18">Marketing et publicité</option>
+                                                <option value="19">Mathématiques</option>
+                                                <option value="20">Mécanique</option>
+                                                <option value="21">Multimédia</option>
+                                                <option value="22">Métiers animaliers</option>
+                                                <option value="23">Ouvrier</option>
+                                                <option value="24">Science vie et terre</option>
+                                                <option value="25">Sciences humaines et sociales</option>
+                                                <option value="26">Sciences physiques</option>
+                                                <option value="27">Secteur santé</option>
+                                                <option value="28">Spectacle/métier de la scène/cinéma</option>
+                                                <option value="29">Sport</option>
+                                                <option value="30">Tourisme</option>
+                                                <option value="31">Transport et logistique</option>
+                                                <option value="32">Travailler avec les enfants</option>
+                                                <option value="33">Travailleur indépendant</option>
+                                                <option value="34">Télécommunications</option>
+                                                <option value="35">Urbanisme</option>
+                                                <option value="36">Ventes et achats</option>
+                                                <option value="37">Edition et métiers du livre</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5 ">
+                                        <div class="form-group">
+                                            <button id="submitForm" type="submit"
+                                                class="btn btn-outline-primary">Valider</button>
+                                            <div class="submitting"></div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                {% if formation != "" %}
+                                <div class="col-md-5 offset-md-3 ">
+                                    <div class="alert alert-info">
+                                        <center> Formation adequate : <b> {{formation}}</b></center>
+                                    </div>
+                                </div>
+                                {% endif %}
+
+
+
+
+
+                        </div>
+                        </form>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

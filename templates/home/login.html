@@ -1,0 +1,60 @@
+{% extends "layouts/base-fullscreen.html" %}
+
+{% block title %} Login {% endblock %}
+
+{% block content %}
+
+<div class="auth-wrapper">
+    <div class="auth-content">
+        <div class="auth-bg">
+            <span class="r"></span>
+            <span class="r s"></span>
+            <span class="r s"></span>
+            <span class="r"></span>
+        </div>
+        <div class="card">
+            <div class="card-body text-center">
+                <div class="mb-4">
+                    <i class="feather icon-unlock auth-icon"></i>
+                </div>
+                <h3 class="mb-4">
+                    Login
+                </h3>
+
+                <span class="mb-0 text-muted">
+                    Add your credentials
+                </span>
+
+                <br />
+                <br />
+
+                <form role="form" action="" method="post">
+                    {% csrf_token %}
+                    <div class="input-group mb-3">
+                        <input class="form-control" placeholder="Username" name="username">
+                    </div>
+
+                    <div class="input-group mb-4">
+                        <input type="password" class="form-control" placeholder="password" name="password">
+                    </div>
+
+
+                    <button name="login" class="btn btn-primary shadow-2 mb-4">Login</button>
+
+                </form>
+
+                <p class="mb-0 text-muted">Don’t have an account? <a href="{% url 'register' %}">Sign Up</a></p>
+                <p class="mb-0 text-muted"> You don't remember your password? <a href="{% url 'reset_password' %}">Pass
+                        reset</a></p>
+                <br />
+                {% for message in messages %}
+                <p id="messages">{{message}}</p>
+                {% endfor %}
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

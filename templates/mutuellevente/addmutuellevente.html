@@ -1,0 +1,392 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+<style>
+    div.sliderContainer {
+        width: 25em;
+        text-align: center;
+    }
+
+    #slider {
+        -webkit-appearance: none;
+        appearance: none;
+        height: 18px !important;
+        width: 145%;
+        border-radius: 10em;
+        background-color: rgb(207, 207, 209);
+        outline: none;
+    }
+
+    #slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: #516afb;
+        cursor: pointer;
+        border: 3px solid #f4f4f4;
+    }
+
+
+    #slider::-moz-range-thumb {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background-color: #dbc500;
+        cursor: pointer;
+        border: 3px solid #f4f4f4;
+    }
+
+    #output {
+        color: #000000;
+        font-family: 'Roboto', sans-serif;
+        letter-spacing: 1.5px;
+        font-size: 20px;
+        margin-left: 157px;
+    }
+</style>
+
+{% endblock stylesheets %}
+
+{% block content %}
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="wrapper">
+                    <div class="row no-gutters">
+                        <div class="">
+                            <div class="contact-wrap w-100 p-md-5 p-4">
+                                <h3 class="mb-4">Rendez vous Forme</h3>
+                                <div id="form-message-warning" class="mb-4"></div>
+
+                                <form method="POST" id="myFormId" name="contactForm" class="contactForm">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="name">Nom client</label>
+                                                {{form.nom_client}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="email">Prénom client</label>
+                                                {{form.prenom_client}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="email">Adresse</label>
+                                                {{form.adresse}}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Code postal</label>
+                                                {{form.code_postal}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="subject">Téléphone fixe ou mobile</label>
+                                                {{form.telephone}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Email</label>
+                                                {{form.email}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Localité</label>
+                                                {{form.localite}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Mutuelle vendue</label>
+                                                {{form.mutuellevendue}}
+                                            </div>
+
+                                        </div>
+
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Formule</label>
+                                                {{form.formule}}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Cotisation</label>
+                                                {{form.cotisation}}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Ancienne</label>
+                                                {{form.ancienne}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Date de vente</label>
+                                                {{form.date_vente}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Date d'effet</label>
+                                                {{form.date_effet}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Nom commercial</label>
+                                                {{form.nomcommercial}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Date de naissance</label>
+                                                {{form.date_naissance}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="#">description</label>
+                                                {{form.description}}
+                                            </div>
+                                        </div>
+
+
+
+
+
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <button id="submitForm" type="submit"
+                                                    class="btn btn-primary">Valider</button>
+                                                <div class="submitting"></div>
+                                            </div>
+                                        </div>
+
+
+
+
+                                        {% for message in messages %}
+                                        <div class="alert alert-primary" role="alert">
+                                            {{message}}
+                                            <a href="#" class="close" data-dismiss="alert"
+                                                aria-label="close">&times;</a>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Liste des Rendez vous .</h5>
+
+                </div>
+                <div class="card-block table-border-style">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Nom client</th>
+                                    <th>Prénom client</th>
+                                    <th>Adresse </th>
+                                    <th>Code postal</th>
+                                    <th>Téléphone</th>
+                                    <th>Email</th>
+                                    <th>Localité</th>
+                                    <th>Mutuelle vendue</th>
+                                    <th>Formule</th>
+                                    <th>Cotisation</th>
+                                    <th>Ancienne</th>
+                                    <th>Date de vente</th>
+                                    <th>Date d'effet</th>
+                                    <th>Nom commercial</th>
+                                    <th>Date de naissance</th>
+                                    <th>Description</th>
+                                    <th>Modifier</th>
+                                    <th>Supprimer</th>
+                                    <th>Ajouter vente</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in list %}
+
+                                <tr>
+
+                                    <form action="" method="POST" id="form">
+                                        {% csrf_token %}
+
+                                        <td>{{ i.nom_client }}</td>
+                                        <td>{{ i.prenom_client }}</td>
+                                        <td>{{ i.adresse }}</td>
+                                        <td>{{ i.code_postal }}</td>
+                                        <td>{{ i.telephone }}</td>
+                                        <td>{{ i.email }}</td>
+                                        <td>{{ i.localite }}</td>
+                                        <td>{{ i.mutuellevendue }}</td>
+                                        <td>{{ i.formule }}</td>
+                                        <td>{{ i.cotisation }}</td>
+                                        <td>{{ i.ancienne }}</td>
+                                        <td>{{ i.date_vente }}</td>
+                                        <td>{{ i.date_effet }}</td>
+                                        <td>{{ i.nomcommercial }}</td>
+                                        <td>{{ i.date_naissance }}</td>
+                                        <td>{{ i.description }}</td>
+
+                                        <td><a href="{% url  'updaterendezvousmutuellevente' i.id %}"
+                                                class="btn btn-outline-primary" data-toggle="tooltip">Modifier</a></td>
+                                        <td><a onclick="supprimer({{i.id}})" class="btn btn-outline-danger" id="refuse"
+                                                data-toggle="tooltip" type="submit" value="Refuse"
+                                                name="status">Supprimer</a></td>
+
+                                        {% if i.etat == 1 %}
+                                        <td><a href="{% url  'ajouterventemutuelle' i.id %}"
+                                                class="btn btn-outline-primary" data-toggle="tooltip">Ajouter vente</a>
+                                        </td>
+                                        {% else %}
+                                        <td>
+                                            <center>
+                                                <i style="color: rgb(76, 185, 148); margin-top: 17px;margin-right: 42px;"
+                                                    class="fa fa-check" aria-hidden="true"></i>
+
+                                            </center>
+
+
+                                        </td>
+
+
+
+                                        {% endif %}
+
+                                </tr>
+                                </form>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+        // alert($('#StockageForm.profession'))
+
+        $('#id_secteur_activite').change(function () {
+            profession_value = document.getElementById("id_secteur_activite").value
+
+            if (profession_value == 'OUI') {
+                document.getElementById("Yes").style.display = "block";
+                document.getElementById("Yes1").style.display = "block";
+
+            }
+            else if (profession_value == 'NON') {
+                document.getElementById("Yes").style.display = "none";
+                document.getElementById("Yes1").style.display = "none";
+
+            }
+            else {
+
+                document.getElementById("Yes").style.display = "none";
+                document.getElementById("Yes1").style.display = "none";
+
+            }
+
+
+
+        });
+    });
+
+
+</script>
+
+
+
+<script>
+
+    function supprimer(idforum) {
+        swal({
+            title: "Are you sure?",
+            text: "Are you sure that you want to leave this page?",
+            icon: "warning",
+            dangerMode: true,
+            buttons: true,
+
+        })
+            .then(willDelete => {
+                if (willDelete) {
+                    swal("Deleted!", "Le rendez-vous a été supprimé !", "success")
+                        .then((value) => {
+                            $.ajax({
+                                url: 'http://51.255.168.8:8000/deleterendezvousmutuellevente/' + idforum,
+                                success: function (data) {
+                                    if (data = "deleted") {
+                                        window.location.replace(window.location.href);
+                                    }
+                                }
+
+
+                            })
+                        })
+                }
+                else {
+                }
+            });
+
+    }
+
+
+</script>
+
+
+
+
+
+<script>
+    var slider = document.getElementById("slider");
+    var output = document.getElementById("output");
+    output.innerHTML = slider.value;
+
+    slider.oninput = function () {
+        output.innerHTML = this.value;
+    }
+</script>
+{% endblock content %}

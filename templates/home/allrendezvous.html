@@ -1,0 +1,108 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Liste des rendez vous </h5>
+                    <!-- <span class="d-block m-t-5">Accepter pour donner l'accès a un utilisateur ou refuser pour le
+                        supprimer </span> -->
+                </div>
+                <div class="card-block table-border-style">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Nom Client</th>
+                                    <th>Prénom Client</th>
+                                    <th>Numéro</th>
+                                    <th>Secteur</th>
+                                    <th>Date rendez-vous</th>
+                                    <th>Date rendez-vous prochaine</th>
+                                    <th>Objet</th>
+                                    <th>Période d'exercise</th>
+                                    <th>Tranche d'age</th>
+                                    <th>Num de sécu</th>
+                                    <th>Formation souhaitée</th>
+                                    <th>Date d'appel</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in rendezvous %}
+
+                                <tr>
+
+                                    <form action="" method="POST" id="form">
+                                        {% csrf_token %}
+                                        <td>{{ i.nom_client }}</td>
+                                        <td>{{ i.prenom_client }}</td>
+                                        <td>{{ i.phone_number }}</td>
+                                        <td>{{ i.secteur }}</td>
+                                        <td>{{ i.date_rendez_vous }}</td>
+                                        <td>{{ i.date_rendez_vous_prochain }}</td>
+                                        <td>{{ i.objet }}</td>
+                                        <td>{{ i.periode_exercise }}</td>
+                                        <td>{{ i.trancheage }}</td>
+                                        <td>{{ i.numdesecu }}</td>
+                                        <td>{{ i.formationsouhaitee }}</td>
+                                        <td>{{ i.date_appel }}</td>
+
+                                </tr>
+                                </form>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+    function supprimer(idforum) {
+        swal({
+            title: "Are you sure?",
+            text: "Are you sure that you want to delete this ?",
+            icon: "warning",
+            dangerMode: true,
+            buttons: true,
+
+        })
+            .then(willDelete => {
+                if (willDelete) {
+                    swal("Deleted!", "Your  file has been deleted!", "success")
+                        .then((value) => {
+                            $.ajax({
+                                url: 'http://51.255.168.8:8000/deleterendezvous/' + idforum,
+                                success: function (data) {
+                                    if (data = "deleted") {
+                                        window.location.replace(window.location.href);
+                                    }
+                                }
+
+
+                            })
+                        })
+                }
+                else {
+                }
+            });
+
+    }
+
+</script>
+
+
+{% endblock content %}

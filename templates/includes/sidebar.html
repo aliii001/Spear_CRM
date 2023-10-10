@@ -1,0 +1,555 @@
+{% load static %}
+
+<nav class="pcoded-navbar">
+    <div class="navbar-wrapper">
+        <div class="navbar-brand header-logo">
+            <a target="_blank" href="https://www.facebook.com/Spear-Consulting-100702298744212" class="b-brand">
+                <div class="b-bg">
+                    <img src="{% static 'images/spear.png' %}" alt="logospear" width="40" height="40">
+                </div>
+                <span class="b-title">Spear consulting</span>
+            </a>
+            <a class="mobile-menu" id="mobile-collapse" href="javascript:"><span></span></a>
+        </div>
+        <div class="navbar-content scroll-div">
+            <ul class="nav pcoded-inner-navbar">
+
+
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'home' %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-home"></i></span><span class="pcoded-mtext">Accueil</span></a>
+                </li>
+
+                {% if request.user.is_staff %}
+                <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds"
+                    class="nav-item pcoded-hasmenu">
+                    <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-box"></i></span><span class="pcoded-mtext">Liste des
+                            charges</span></a>
+                    <ul class="pcoded-submenu">
+                        <li class=""><a href="{% url 'listechargefixe'  %}" class="">Liste des
+                                charges Fixes</a></li>
+                        <li class=""><a href="{% url 'listechargevariable'  %}" class="">Liste des
+                                charges Variables</a></li>
+                        <li class=""><a href="{% url 'listechargeimprevisionelle'  %}" class="">Liste des
+                                charges Imprevisionelle</a></li>
+
+                    </ul>
+                </li>
+                {% endif %}
+
+                {% with role=request.user.groups.all.0.name %}
+                <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds"
+                    class="nav-item pcoded-hasmenu">
+                    <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-box"></i></span><span class="pcoded-mtext">Calendrier des
+                            Rendez-vous</span></a>
+                    {% if role == 'RH' or role == 'admin' or role == 'evaluateur' %}
+                    <ul class="pcoded-submenu">
+                        <li class=""><a href="{% url 'listcalendrieropco'  %}" class="">Liste des
+                                rendez-vous OPCO</a></li>
+
+                    </ul>
+                    <ul class="pcoded-submenu">
+                        <li class=""><a href="{% url 'listcalendrierenergetique'  %}" class="">Liste des
+                                rendez-vous ENERGIE</a></li>
+
+                    </ul>
+                    <ul class="pcoded-submenu">
+                        <li class=""><a href="{% url 'listcalendriermutuelle'  %}" class="">Liste des
+                                rendez-vous MUTUELLE</a></li>
+                    </ul>
+                    <ul class="pcoded-submenu">
+                        <li class=""><a href="{% url 'listcalendriermutuellevente'  %}" class="">Liste des
+                                rendez-vous MUTUELLE VENTE</a></li>
+                    </ul>
+                    <ul class="pcoded-submenu">
+                        <li class=""><a href="{% url 'listcalendriervoyance'  %}" class="">Liste des
+                                rendez-vous VOYANCE</a></li>
+                    </ul>
+                    {% endif %}
+                    {% if role == 'OPCO' %}
+                    <ul class="pcoded-submenu">
+                        <li class=""><a href="{% url 'listcalendrieropco'  %}" class="">Liste des
+                                rendez-vous OPCO</a></li>
+                    </ul>
+                    {% endif %}
+                    {% if role == 'energie' %}
+                    <ul class="pcoded-submenu">
+                        <li class=""><a href="{% url 'listcalendrierenergetique'  %}" class="">Liste des
+                                rendez-vous ENERGIE</a></li>
+                    </ul>
+                    {% endif %}
+                    {% if role == 'mutuelle' %}
+                    <ul class="pcoded-submenu">
+                        <li class=""><a href="{% url 'listcalendriermutuelle'  %}" class="">Liste des
+                                rendez-vous MUTUELLE</a></li>
+                    </ul>
+                    {% endif %}
+                    {% if role == 'mutuelle_vente' %}
+                    <ul class="pcoded-submenu">
+                        <li class=""><a href="{% url 'listcalendriermutuellevente'  %}" class="">Liste des
+                                rendez-vous MUTUELLE VENTE</a></li>
+                    </ul>
+                    {% endif %}
+                    {% if role == 'voyance' %}
+                    <ul class="pcoded-submenu">
+                        <li class=""><a href="{% url 'listcalendriervoyance'  %}" class="">Liste des
+                                rendez-vous VOYANCE</a></li>
+                    </ul>
+                    {% endif %}
+
+                </li>
+                {% endwith %}
+                {% with role=request.user.groups.all.0.name %}
+                {% if role == 'RH' or role == 'energie' or role == 'admin' or role == 'evaluateur' %}
+                <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds"
+                    class="nav-item pcoded-hasmenu">
+                    <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-box"></i></span><span class="pcoded-mtext">Liste des
+                            Rendez-vous</span></a>
+                    <ul class="pcoded-submenu">
+                        <li class=""><a href="{% url 'listrendezvousmutuelleadmin'  %}" class="">Liste des
+                                Rendez-vous mutuelle</a></li>
+                        <li class=""><a href="{% url 'listrendezvousvoyanceadmin'  %}" class="">Liste des
+                                Rendez-vous Voyance</a></li>
+                        <li class=""><a href="{% url 'listrendezvousenergieadmin'  %}" class="">Liste des
+                                rendez-vous Energie</a></li>
+                        <li class=""><a href="{% url 'listrendezvousopcoadmin'  %}" class="">Liste des
+                                rendez-vous OPCO</a></li>
+                        <li class=""><a href="{% url 'allrendezvous'  %}" class="">Liste des
+                                rendez-vous CPF</a></li>
+
+
+
+                    </ul>
+                </li>
+                {% endif %}
+                {% endwith %}
+
+
+                {% with role=request.user.groups.all.0.name %}
+                {% if role == 'energie' %}
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'listrendezvousenergieadmin'  %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-users"></i></span><span class="pcoded-mtext">Liste des
+                            rendez-vous ENERGIE</span></a>
+                </li>
+                {% endif %}
+                {% endwith %}
+
+                {% with role=request.user.groups.all.0.name %}
+                {% if role == 'mutuelle' %}
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'mesrendezvousmutuelle'  %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-users"></i></span><span class="pcoded-mtext">Mes
+                            rendez-vous</span></a>
+                </li>
+                {% endif %}
+                {% endwith %}
+                {% with role=request.user.groups.all.0.name %}
+                {% if role == 'voyance' %}
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'listrendezvousvoyanceadmin'  %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-users"></i></span><span class="pcoded-mtext">Liste des
+                            rendez-vous Voyance</span></a>
+                </li>
+                {% endif %}
+                {% endwith %}
+
+
+                {% with role=request.user.groups.all.0.name %}
+                {% if role == 'OPCO' %}
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'listrendezvousopcoadmin'  %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-users"></i></span><span class="pcoded-mtext">Liste des
+                            rendez-vous OPCO</span></a>
+                </li>
+                {% endif %}
+                {% endwith %}
+
+                {% with role=request.user.groups.all.0.name %}
+                {% if role == 'RH' %}
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'facturerv'  %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-users"></i></span><span class="pcoded-mtext">Facture
+                            Rendez-vous</span></a>
+                </li>
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'facturevente'  %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-users"></i></span><span class="pcoded-mtext">Facture
+                            vente</span></a>
+                </li>
+                {% endif %}
+                {% endwith %}
+
+
+
+                {% with role=request.user.groups.all.0.name %}
+                {% if role == 'admin' or role == 'evaluateur' %}
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'listsuivicpf'  %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-users"></i></span><span class="pcoded-mtext">Liste des
+                            suivi CPF</span></a>
+                </li>
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'listsuivimutellesante'  %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-users"></i></span><span class="pcoded-mtext">Liste des
+                            suivi mutelle santé</span></a>
+                </li>
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'listsuiviopco'  %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-users"></i></span><span class="pcoded-mtext">Liste des
+                            suivi opco</span></a>
+                </li>
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'listsuivien'  %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-users"></i></span><span class="pcoded-mtext">Liste des
+                            suivi énergétique</span></a>
+                </li>
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'listsuivivoyance'  %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-users"></i></span><span class="pcoded-mtext">Liste des
+                            suivi voyance</span></a>
+                </li>
+                {% endif %}
+                {% endwith %}
+
+
+                {% with role=request.user.groups.all.0.name %}
+                {% if role == 'energie' %}
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'addrendezenergie'  %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-users"></i></span><span class="pcoded-mtext">Ajouter
+                            rendez-vous Energie</span></a>
+                </li>
+                {% endif %}
+                {% endwith %}
+
+                {% with role=request.user.groups.all.0.name %}
+                {% if role == 'mutuelle_vente' %}
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'addmutuellevente'  %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-users"></i></span><span class="pcoded-mtext">Ajouter
+                            rendez-vous Mutuelle vente</span></a>
+                </li>
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'listdesventes'  %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-users"></i></span><span class="pcoded-mtext">Liste des
+                            ventes</span></a>
+                </li>
+
+                {% endif %}
+                {% endwith %}
+                {% with role=request.user.groups.all.0.name %}
+                {% if role == 'E_commerce' %}
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'addventeecommerce'  %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-users"></i></span><span class="pcoded-mtext">Ajouter
+                            vente E_commerce</span></a>
+                </li>
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'addproduct'  %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-users"></i></span><span class="pcoded-mtext">Ajouter produit
+                        </span></a>
+                </li>
+                {% endif %}
+                {% endwith %}
+
+                {% with role=request.user.groups.all.0.name %}
+                {% if role == 'voyance' %}
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'addrendezvousvoyance'  %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-users"></i></span><span class="pcoded-mtext">Ajouter
+                            rendez-vous (voyance)</span></a>
+                </li>
+
+                {% endif %}
+                {% endwith %}
+
+                {% with role=request.user.groups.all.0.name %}
+                {% if role == 'evaluateur' %}
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'ajoutersuivicpf'  %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-users"></i></span><span class="pcoded-mtext">Ajouter
+                            suivi cpf </span></a>
+                </li>
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'ajoutersuivimutuelle'  %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-users"></i></span><span class="pcoded-mtext">Ajouter
+                            suivi mutuelle santé </span></a>
+                </li>
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'ajoutersuiviopco'  %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-users"></i></span><span class="pcoded-mtext">Ajouter
+                            suivi Opco </span></a>
+                </li>
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'ajoutersuivien'  %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-users"></i></span><span class="pcoded-mtext">Ajouter
+                            suivi Energétique </span></a>
+                </li>
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'ajoutersuivivoyance'  %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-users"></i></span><span class="pcoded-mtext">Ajouter
+                            suivi voyance </span></a>
+                </li>
+
+
+
+                {% endif %}
+                {% endwith %}
+
+
+
+                {% with role=request.user.groups.all.0.name %}
+                {% if role == 'user' or role == 'admin' %}
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'dashboard' %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-bar-chart"></i></span><span class="pcoded-mtext">Tableau de bord
+                        </span></a>
+                </li>
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'model'  %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-layers"></i></span><span class="pcoded-mtext">Modèle</span></a>
+                </li>
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'maps' %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-map-pin"></i></span><span class="pcoded-mtext">Maps</span></a>
+                </li>
+                {% endif %}
+                {% endwith %}
+
+
+                {% if request.user.groups.all.0.name == 'RH' %}
+                <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds"
+                    class="nav-item pcoded-hasmenu">
+                    <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-box"></i></span><span class="pcoded-mtext">Décalaration charges
+                        </span></a>
+                    <ul class="pcoded-submenu">
+                        <li class=""><a href="{% url 'addchargefixe'  %}" class="">
+                                charges Fixes</a></li>
+                        <li class=""><a href="{% url 'addchargevariable'  %}" class="">
+                                charges Variables</a></li>
+                        <li class=""><a href="{% url 'addchargeimprevisionelle'  %}" class="">
+                                charges Imprevisionelle</a></li>
+
+                    </ul>
+                </li>
+                {% endif %}
+
+                {% if request.user.groups.all.0.name == 'OPCO' %}
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'addrendezvousopco'  %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-users"></i></span><span class="pcoded-mtext">Ajouter
+                            rendez-vous OPCO</span></a>
+                </li>
+
+                {% endif %}
+
+                {% if request.user.groups.all.0.name == 'mutuelle' %}
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'addmutuelle'  %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-users"></i></span><span class="pcoded-mtext">Ajouter
+                            rendez-vous MUTUELLE</span></a>
+                </li>
+
+                {% endif %}
+
+                {% with role=request.user.groups.all.0.name %}
+                {% if role == 'RH' or role == 'admin' or role == 'E_commerce' or role == 'evaluateur' %}
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'stat_ecommerce'  %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-monitor"></i></span><span class="pcoded-mtext">Stat
+                            E_Commerce</span></a>
+                </li>
+                {% endif %}
+                {% endwith %}
+
+                {% with role=request.user.groups.all.0.name %}
+                {% if role == 'RH' or role == 'admin' or role == 'energie' %}
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'stat_energie'  %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-monitor"></i></span><span class="pcoded-mtext">Stat
+                            Energie</span></a>
+                </li>
+                {% endif %}
+                {% endwith %}
+
+                {% with role=request.user.groups.all.0.name %}
+                {% if role == 'RH' or role == 'admin' or role == 'OPCO' %}
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'stat_opco'  %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-monitor"></i></span><span class="pcoded-mtext">Stat
+                            Opco</span></a>
+                </li>
+                {% endif %}
+                {% endwith %}
+
+                {% with role=request.user.groups.all.0.name %}
+                {% if role == 'admin' or role == 'evaluateur' %}
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'stat_rv_par_role'  %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-monitor"></i></span><span class="pcoded-mtext">Stat
+                            rendez-vous + liste des ventes par role</span></a>
+                </li>
+                {% endif %}
+                {% endwith %}
+
+
+
+
+
+
+                {% if request.user.is_staff %}
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'allUsers'  %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-users"></i></span><span class="pcoded-mtext">Liste des
+                            utilisateurs</span></a>
+                </li>
+                {% endif %}
+                {% if request.user.is_staff %}
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'listBilanAdmin'  %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-copy"></i></span><span class="pcoded-mtext">Liste des
+                            ventes</span></a>
+                </li>
+                {% endif %}
+                {% if request.user.is_staff %}
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'SuiviAdmin'  %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-trending-up"></i></span><span class="pcoded-mtext">Suivi des
+                            utilisateurs</span></a>
+                </li>
+                {% endif %}
+
+
+                {% if request.user.is_staff %}
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'database_tocsv'  %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-home"></i></span><span class="pcoded-mtext">Stockage</span></a>
+                </li>
+
+                {% endif %}
+                {% with role=request.user.groups.all.0.name %}
+                {% if role == 'user' or role == 'admin' %}
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'createBilan'  %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-monitor"></i></span><span class="pcoded-mtext">Ventes</span></a>
+                </li>
+                {% endif %}
+                {% endwith %}
+
+                {% with role=request.user.groups.all.0.name %}
+                {% if role == 'user' %}
+                <!-- <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'createSuivi'  %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-trending-up"></i></span><span class="pcoded-mtext">Suivi</span></a>
+                </li> -->
+
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'listBilan'  %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-home"></i></span><span class="pcoded-mtext">Mes ventes</span></a>
+                </li>
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'Rendezvous'  %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-home"></i></span><span class="pcoded-mtext">Rendez-vous</span></a>
+                </li>
+
+                {% endif %}
+                {% if role == 'RH' %}
+                <!-- <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                                    <a href="{% url 'createSuivi'  %}" class="nav-link "><span class="pcoded-micon"><i
+                                                class="feather icon-trending-up"></i></span><span class="pcoded-mtext">Suivi</span></a>
+                                </li> -->
+
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'listBilan'  %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-home"></i></span><span class="pcoded-mtext">Liste des ventes CPF
+                        </span></a>
+                </li>
+
+
+                {% endif %}
+
+                {% if role == 'user' or role == 'admin' %}
+
+
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'alleventsPage'  %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-calendar"></i></span><span
+                            class="pcoded-mtext">Calendrier</span></a>
+                </li>
+                {% endif %}
+                {% endwith %}
+
+
+
+                <!-- <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                    class="nav-item {% if 'index' in segment %} active {% endif %}">
+                    <a href="{% url 'profileUser'  %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-user-check"></i></span><span class="pcoded-mtext">Profile</span></a>
+                </li> -->
+
+
+
+
+
+
+                <li data-username="Disabled Menu" class="nav-item">
+                    <a href="{% url 'logout' %}" class="nav-link">
+                        <span class="pcoded-micon"><i class="feather icon-power"></i></span><span
+                            class="pcoded-mtext">Déconnexion</span>
+                    </a>
+                </li>
+
+
+
+            </ul>
+        </div>
+    </div>
+</nav>

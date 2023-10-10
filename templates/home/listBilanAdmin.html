@@ -1,0 +1,376 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Bilans</h5>
+                    <span class="d-block m-t-5">Liste des bilans :</span>
+                    <span class="d-block m-t-5">Le nombre de bilan est : {{total}}</span>
+                    <span class="d-block m-t-5">Le total des ventes est : {{total_ventes.count}}</span>
+
+                </div>
+                <div class="card-block table-border-style">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Nom client </th>
+                                    <th>Prénom client</th>
+                                    <th>Age</th>
+                                    <th>Secteur d'activité</th>
+                                    <th>Nom formation</th>
+                                    <th>Nombre d'heures</th>
+                                    <th>Prix formation</th>
+                                    <th>Date début</th>
+                                    <th>Catégorie</th>
+                                    <th>Nom agent</th>
+                                    <th>Prénom agent</th>
+                                    <th>Supprimer Bilan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+
+                                <tr>
+
+                                    <form action=" " method="POST" id="">
+                                        {% for i in bilans %}
+                                        {% csrf_token %}
+                                        <td>{{ i.nom_client }}</td>
+                                        <td>{{ i.prenom_client }}</td>
+                                        <td>{{ i.age }}</td>
+                                        <td>{{i.secteur_activite}}</td>
+                                        <td>{{ i.nom_formation }}</td>
+                                        <td>{{ i.nbre_heure }}</td>
+                                        <td>{{ i.prix_formation }}</td>
+                                        <td>{{ i.date_debut }}</td>
+                                        <td>{{ i.categorie }}</td>
+                                        <td>{{ i.nom_agent }}</td>
+                                        <td>{{ i.prenom_agent }}</td>
+                                        <td><a onclick="supprimer({{i.id}})" class="generic-btn info-border radius"><i
+                                                    class="fa fa-trash" style="font-size:30px;color:red"></i> </a>
+                                        </td>
+
+
+                                </tr>
+                                {% endfor %}
+                                </form>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="container">
+            <div class="row justify-content-start">
+                <div class="col-6">
+
+                    <div class="card">
+                        <div class="card-block table-border-style">
+                            <center>
+                                <h4>Nombre des ventes par utilisateur</h4>
+                            </center>
+                            <canvas id="bilanchart" width="400" height="400"></canvas>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-6">
+
+                    <div class="card">
+                        <div class="card-block table-border-style">
+                            <center>
+                                <h4>Total des ventes par utilisateur</h4>
+                            </center>
+                            <canvas id="bilanchart2" width="400" height="400"></canvas>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="container">
+                    <div class="row justify-content-center">
+
+                        <div class="card">
+                            <div class="card-block table-border-style">
+                                <center>
+                                    <h4>Nombre des formations vendues par paquet</h4>
+                                </center>
+                                <canvas id="paquetchart" width="600" height="600"></canvas>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+
+
+</div>
+
+</div>
+</div>
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+
+    $(function () {
+        $('#submitForm').on('click', function () {
+            // store current button into variable
+            var id = $(this).data('photo-id');
+            //alert(id)
+            console.log(id)
+            // warnBeforeRedirect(id);
+        })
+    })
+
+    function warnBeforeRedirect(id) {
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this file!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#5c5856",
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, cancel plx!",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+            function (isConfirm) {
+                if (isConfirm) {
+                    swal('ana wini')
+                } else {
+                    swal("Cancelled", "Your file is safe :)", "error");
+                }
+            }
+        );
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    const ctx = document.getElementById('bilanchart').getContext('2d');
+    const myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: [{% for data in data %} '{{ data.username }}', {% endfor %}],
+    datasets: [{
+        label: 'Nombre de bilan',
+        data: [{% for data in data %} '{{ data.count }}', {% endfor %}],
+        backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+        ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+                borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+
+
+    const ctx2 = document.getElementById('bilanchart2').getContext('2d');
+    const myChart2 = new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: [{% for data in data2 %} '{{ data.username }}' , {% endfor %}],
+    datasets: [{
+        label: 'Total',
+        data: [{% for data in data2 %} '{{ data.count }}', {% endfor %}],
+        backgroundColor: [
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+
+        ],
+            borderColor: [
+                'rgba(75, 192, 192, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(153, 102, 255, 1)',
+
+            ],
+                borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+
+
+    const ctx3 = document.getElementById('paquetchart').getContext('2d');
+    const myChart3 = new Chart(ctx3, {
+        type: 'polarArea',
+        data: {
+            labels: [{% for data in data3 %} '{{ data.categorie }}', {% endfor %}],
+    datasets: [{
+        label: 'Nombre de bilan',
+        data: [{% for data in data3 %} '{{ data.count }}', {% endfor %}],
+        backgroundColor: [
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+
+        ],
+            borderColor: [
+                'rgba(75, 192, 192, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(153, 102, 255, 1)',
+
+            ],
+                borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+
+
+
+
+    $('#submitForm').on('click', function (e) {
+
+        e.preventDefault();
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location = e.target.href
+
+            } else if (result.isDenied) {
+                Swal.fire('Changes are not saved', '', 'info')
+            }
+        }
+        );
+    });
+
+
+
+
+
+
+
+
+
+
+
+    function supprimer(idforum) {
+        swal({
+            title: "Are you sure?",
+            text: "Are you sure that you want to leave this page?",
+            icon: "warning",
+            dangerMode: true,
+            buttons: true,
+
+        })
+            .then(willDelete => {
+                if (willDelete) {
+                    swal("Deleted!", "Your  file has been deleted!", "success")
+                        .then((value) => {
+                            $.ajax({
+                                url: 'http://51.255.168.8:8000/deleteBilanAdmin/' + idforum,
+                                success: function (data) {
+                                    if (data = "deleted") {
+                                        window.location.replace(window.location.href);
+                                    }
+                                }
+
+
+                            })
+                        })
+                }
+                else {
+                }
+            });
+
+    }
+
+
+
+
+
+
+</script>
+
+{% endblock content %}

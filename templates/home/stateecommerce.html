@@ -1,0 +1,266 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <div class="col-xl-8">
+            <div class="card" style="margin-left: 350px;">
+                <div class="card-block border-bottom">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-auto">
+                            <i class="feather icon-trending-up f-30 text-c-green"></i>
+                        </div>
+                        <div class="col">
+                            <h3 class="f-w-300">{{nbvente}}</h3>
+                            <span class="d-block text-uppercase">Nombre de vente E_Commerce</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+
+
+    </div>
+
+
+
+</div>
+
+<div class="container">
+    <div class="row justify-content-start">
+
+        <div class="col-6">
+
+            <div class="card">
+                <div class="card-block table-border-style">
+                    <center>
+                        <h4>Gain et dépences par produit</h4>
+                    </center>
+                    <canvas id="bilanchart" width="500" height="500"></canvas>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-6">
+
+            <div class="card">
+                <div class="card-block table-border-style">
+                    <center>
+                        <h4>Gain et dépences par catégorie</h4>
+                    </center>
+                    <canvas id="bilanchartcat" width="500" height="500"></canvas>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-6">
+
+            <div class="card">
+                <div class="card-block table-border-style">
+                    <center>
+                        <h4>Nombre de vente par produit</h4>
+                    </center>
+                    <canvas id="bilanchart2" width="500" height="500"></canvas>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-6">
+
+            <div class="card">
+                <div class="card-block table-border-style">
+                    <center>
+                        <h4>Nombre de vente par catégorie</h4>
+                    </center>
+                    <canvas id="bilanchart3" width="500" height="500"></canvas>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+    const ctx = document.getElementById('bilanchart').getContext('2d');
+    const lineChart = new Chart(ctx, {
+        type: "line",
+        data: {
+            labels: [{% for data in data %} '{{ data.nomproduit }}', {% endfor %}],
+    datasets: [
+        {
+            label: "Bénéfices",
+            data: [{% for data in data %} '{{ data.BENEFICES }}', {% endfor %}],
+        fill: false,
+            borderColor: "rgb(50,205,50)",
+                lineTension: 0.1,
+                    borderWidth: 2,
+
+                        hoverBorderWidth: 3,
+                            hoverBorderColor: '#000'
+                }
+         , {
+        label: "Dépences",
+            data: [{% for data in data %} '{{ data.DEPENCES }}', {% endfor %}],
+    fill: false,
+        borderColor: "rgb(255,0,0)",
+            lineTension: 0.1,
+                borderWidth: 2,
+
+                    hoverBorderWidth: 3,
+                        hoverBorderColor: '#000'
+                }
+            ]
+        },
+    options: {
+        responsive: false
+    }
+        }
+
+    );
+
+    const ctxcat = document.getElementById('bilanchartcat').getContext('2d');
+    const lineChartt = new Chart(ctxcat, {
+        type: "line",
+        data: {
+            labels: [{% for data in categoriess %} '{{ data.nomcategorie }}', {% endfor %}],
+    datasets: [
+        {
+            label: "Bénéfices",
+            data: [{% for data in categoriess %} '{{ data.benefices }}', {% endfor %}],
+        fill: false,
+            borderColor: "rgb(50,205,50)",
+                lineTension: 0.1,
+                    borderWidth: 2,
+
+                        hoverBorderWidth: 3,
+                            hoverBorderColor: '#000'
+                }
+         , {
+        label: "Dépences",
+            data: [{% for data in categoriess %} '{{ data.depences }}', {% endfor %}],
+    fill: false,
+        borderColor: "rgb(255,0,0)",
+            lineTension: 0.1,
+                borderWidth: 2,
+
+                    hoverBorderWidth: 3,
+                        hoverBorderColor: '#000'
+                }
+            ]
+        },
+    options: {
+        responsive: false
+    }
+        }
+
+    );
+
+
+
+
+    const ctx2 = document.getElementById('bilanchart2').getContext('2d');
+    const myChart2 = new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: [{% for data in data %} '{{ data.nomproduit }}' , {% endfor %}],
+    datasets: [{
+        label: 'Total',
+        data: [{% for data in data %} '{{ data.NBVENTE }}', {% endfor %}],
+        backgroundColor: [
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+
+        ],
+            borderColor: [
+                'rgba(75, 192, 192, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(153, 102, 255, 1)',
+
+            ],
+                borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+
+
+    const ctx3 = document.getElementById('bilanchart3').getContext('2d');
+    const myChart3 = new Chart(ctx3, {
+        type: 'doughnut',
+        data: {
+            labels: [{% for data in nbvente_par_categorie %} '{{ data.nomcategorie }}' , {% endfor %}],
+    datasets: [{
+        label: 'Total',
+        data: [{% for data in nbvente_par_categorie %} '{{ data.nbvente }}', {% endfor %}],
+        backgroundColor: [
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+
+        ],
+            borderColor: [
+                'rgba(75, 192, 192, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(153, 102, 255, 1)',
+
+            ],
+                borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+
+
+
+</script>
+
+{% endblock content %}
